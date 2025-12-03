@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/onBoarding/on_boarding_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/sigin/signin_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +31,7 @@ class MainApp extends StatelessWidget {
         home: SafeArea(
             top: true,
             bottom: false,
-            child: OnBoardingView()
+            child: SignInView()
         ),
       ),
     );
