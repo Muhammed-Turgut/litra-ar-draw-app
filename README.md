@@ -3,7 +3,7 @@
 ---
 <p>Kullanıcıların klavuz çizgiler ile daha rahat resim çimesini sağlayan mobil uygulama projesi.</p>
 
-<h3>FEAT: Dosya Yapısı Oluşturuldu</h3>
+<h3>0.0.1 Dosya Yapısı Oluşturuldu</h3>
 
 ---
 <p>Dosya yapısında MVVM → SOLID → Clean Architecture yapıları ve prensipleri kullanıldı.
