@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:litra_ar_draw_app/presentation/views/home/home_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/splash/splash_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       home: SafeArea(
       top: true,
       bottom: false,
-      child: HomeView(),
+      child: SplashView(),
     ),
 
     );
