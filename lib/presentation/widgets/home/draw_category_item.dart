@@ -45,7 +45,7 @@ class DrawCategoryItem extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
 
         SizedBox(
           height: 120, // <-- YATAY LİSTE YÜKSEKLİĞİ
@@ -61,7 +61,7 @@ class DrawCategoryItem extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 24),
+        const SizedBox(height: 16),
       ],
     );
   }

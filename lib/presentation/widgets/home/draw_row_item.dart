@@ -16,36 +16,43 @@ class DrawRowItem extends StatelessWidget {
     required this.state,
     required this.onTabItem,
     this.index
-  });
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      child: Stack(
-        children: [
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(child: Image.asset("assets/images/${image}",fit: BoxFit.scaleDown)),
-          ),
-          Positioned(
+    return AspectRatio(
+      //AspectRatio, içindeki widget’ın genişlik / yükseklik oranını korumaya zorlayan bir layout widget’tır.
+      aspectRatio: 1,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Color(0xFFF5F5F5), width: 2),
+        ),
+        child: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                    "assets/images/$image",
+                    fit: BoxFit.contain
+                ),
+              ),
+            ),
+            Positioned(
               top: 8,
               right: 8,
-              child: SvgPicture.asset("assets/icons/${ state ? "selected_star_icon.svg " : "default_star_icon.svg"}",width: 18, height: 18,)
-          )
-
-        ],
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(16)),
-        border: Border.all(
-            color: Color(0xFFF5F5F5),   // çizgi rengi
-            width: 2,              // çizgi kalınlığı
-        )
+              child: SvgPicture.asset(
+                "assets/icons/${state ? "selected_star_icon.svg" : "default_star_icon.svg"}",
+                width: 18,
+                height: 18,
+              ),
+            ),
+          ],
+        ),
       ),
     );
+
   }
 }

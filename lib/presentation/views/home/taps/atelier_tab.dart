@@ -77,16 +77,17 @@ class AtelierTab extends StatelessWidget {
   Widget _buildContentField() {
     return Container(
       width: double.infinity,
-      height: 600,
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.only(left: 16,top: 24, right: 16, bottom: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
             DrawCategoryItem(title: "Basic Drawing Categories",onTapItem: (){},onTapMore: (){},list: _list),
             DrawCategoryItem(title: "People Drawing",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "For Kids",onTapItem: (){},onTapMore: (){},list: _list)
+            DrawCategoryItem(title: "For Kids",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Anime",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Cartoon",onTapItem: (){},onTapMore: (){},list: _list)
 
           ],
         ),
