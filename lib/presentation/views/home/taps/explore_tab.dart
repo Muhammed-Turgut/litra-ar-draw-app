@@ -272,7 +272,7 @@ class _ExploreTabState extends State<ExploreTab> {
                     fontSize: 12,
                     fontWeight: FontWeight.w300
                   ),
-                     maxLines: 3,                 // 👉 En fazla 3 satır göster
+                     maxLines: 3,
                      overflow: TextOverflow.ellipsis
                  )
                ],

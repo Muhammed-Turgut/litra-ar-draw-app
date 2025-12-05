@@ -1,0 +1,61 @@
+import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
+import 'package:litra_ar_draw_app/presentation/views/home/home_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/onBoarding/on_boarding_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/sigin/signin_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/splash/splash_view.dart';
+
+class AppRouter{
+  AppRouter._();
+
+  ///Flutter’da yönlendirmeyi (navigation) widget tree'nin dışından yapabilmek için kullanılan bir yapıdır.
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+
+  static final GoRouter router = GoRouter(
+    navigatorKey: navigatorKey,
+    initialLocation: '/splash',
+    routes: [
+
+      GoRoute(
+        //Splash screen - ilk açılan ekranım
+        path: '/splash',
+        name: 'splash',
+        builder: (context,state) => SplashView()
+      ),
+
+      GoRoute(
+        //OnBoarding screen - Uygulama tanıtım ekranı.
+          path: '/onBoarding',
+          name: 'onBoarding',
+          builder: (context,state) => OnBoardingView()
+      ),
+
+      GoRoute(
+        //SignIn Screen - Kullanıcının kayıt olduğu yer.
+          path: '/signUp',
+          name: 'signUp',
+          builder: (context,state) => SignInView()
+      ),
+
+      GoRoute(
+        //LogIn Screen - Kullanıcının mevcut hesabı ile giriş yaptığı yer.
+          path: '/logIn',
+          name: 'logIn',
+          builder: (context,state) => LoginView()
+      ),
+
+      GoRoute(
+        //Home Screen - Ana Sayfa
+          path: '/home',
+          name: 'home',
+          builder: (context,state) => HomeView()
+      )
+
+
+    ]
+
+  );
+
+}
