@@ -67,3 +67,13 @@ lib/
 │
 └── main.dart
 ```
+<h3>0.0.3 Page Route Yapısı Oluşturuldu</h3>
+Uygulama içerisinde Material.route kullanamk için core içinde app_route.dart sınıfının tanımlaması yapıldı.
+Aynı zamanda go_route kütüphanesi eklendi.
+
+[Flutter Pub Dev Linki](https://pub.dev/packages/go_router/install)
+
+```yaml
+ dependencies:
+  go_router: ^17.0.0
+```
