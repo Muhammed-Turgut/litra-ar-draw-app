@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:litra_ar_draw_app/presentation/views/splash/splash_view.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+   MultiProvider(
+     providers: [
+
+      ],
+     child: MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
