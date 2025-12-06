@@ -16,7 +16,7 @@ class AppRouter{
 
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/noInternet',
+    initialLocation: '/splash',
     routes: [
 
       GoRoute(

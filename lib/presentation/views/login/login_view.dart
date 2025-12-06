@@ -7,7 +7,9 @@ import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dar
 
 
 class LoginView extends StatelessWidget {
-  TextEditingController _fullNameController = TextEditingController();
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -119,28 +121,21 @@ class LoginView extends StatelessWidget {
                   SizedBox(height: 24),
 
                   CustomInputField(
-                    title: "Full Name",
-                    icon: "assets/icons/user_icon.svg",
-                    hint: "Aynur Turgut",
-                    controller: _fullNameController,
-                  ),
-                  SizedBox(height: 16),
-                  CustomInputField(
                     title: "E-mail adress",
                     icon: "assets/icons/email_icon.svg",
                     hint: "example@gmail.com",
-                    controller: _fullNameController,
+                    controller: _emailController,
                   ),
                   SizedBox(height: 16),
                   CustomInputField(
                     title: "Password",
                     icon: "assets/icons/lock_password_icon.svg",
                     hint: "**************",
-                    controller: _fullNameController,
+                    controller: _passwordController,
                   ),
                   SizedBox(height: 16),
                   ContinueButton(
-                    title: "Sign Up",
+                    title: "Log in",
                     foregroundColor: Colors.white,
                     backgroundColor: Color(0xFF50C4ED),
                     onPressButton: () {

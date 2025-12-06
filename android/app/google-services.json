@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160471363498",
+    "project_id": "litra-ar-draw",
+    "storage_bucket": "litra-ar-draw.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160471363498:android:95276ce7b20bd51077c5d3",
+        "android_client_info": {
+          "package_name": "com.muhammedturgut.litra_ar_draw_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_BCkIirF6a82_DopVui0sV23kd7cNhcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

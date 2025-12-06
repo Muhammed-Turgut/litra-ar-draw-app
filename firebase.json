@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"litra-ar-draw","appId":"1:160471363498:android:95276ce7b20bd51077c5d3","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"litra-ar-draw","configurations":{"android":"1:160471363498:android:95276ce7b20bd51077c5d3","ios":"1:160471363498:ios:1d349e0845efccf577c5d3"}}}}}}

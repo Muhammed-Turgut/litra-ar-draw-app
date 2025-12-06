@@ -6,19 +6,22 @@ class CustomInputField extends StatelessWidget {
   final String title;
   final String hint;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   CustomInputField({
       Key? key,
       required this.icon,
       required this.title,
       required this.controller,
-      required this.hint
+      required this.hint,
+      this.validator
     }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Genellikle ekranın ortasında göstermek için bir Center ve Padding kullanırız
-    return TextField(
+    return TextFormField(
+      validator: validator,
       controller: controller,
       style: const TextStyle(
         color: Color(0xFF858585),

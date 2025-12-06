@@ -2,12 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
+import 'package:litra_ar_draw_app/presentation/view_models/signin_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dart';
+import 'package:provider/provider.dart';
 
 class SignInView extends StatelessWidget {
-  TextEditingController _fullNameController = TextEditingController();
+
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String email ="",password ="", fullName = "";
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +25,7 @@ class SignInView extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
+    final viewModel = Provider.of<SigInViewModel>(context, listen: false);
     return Stack(
       children: [
         Column(
@@ -52,14 +60,71 @@ class SignInView extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(height: 20,),
+            SizedBox(height: 16,),
             _buildTopFiled(),
-            SizedBox(height: 28,),
-            _buildTextFieldAre(context)
+            SizedBox(height: 16,),
+            _buildBottomContent(context)
           ],
-        )
-      ],
-    );
+        ),
+
+    Consumer<SigInViewModel>(
+    builder: (context, viewModel, child) {
+    if (viewModel.errorMessage == null) return SizedBox();
+
+    return Align(
+       alignment: Alignment.bottomCenter,
+       child: Column(
+          mainAxisSize: MainAxisSize.min,
+           children: [
+             // PROGRESS BAR (3 saniye)
+             TweenAnimationBuilder<double>(
+               tween: Tween(begin: 1.0, end: 0.0),
+               duration: Duration(seconds: 3),
+               builder: (context, value, _) {
+                 return LinearProgressIndicator(
+                   value: value,
+                   backgroundColor: Color(0xFF50C4ED).withOpacity(0.3),
+                   valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF50C4ED)),
+                 );
+               },
+             ),
+             Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Color(0xFF50C4ED),
+                borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
+                ),
+              ),
+             child: Row(
+                children: [
+                Icon(Icons.error, color: Colors.white),
+                SizedBox(width: 8),
+                Expanded(
+                child: Text(
+                    viewModel.errorMessage!,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Outfit',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ),
+              ],
+             ),
+           ),
+
+
+        ],
+       ),
+       );
+      },
+    )
+    ],
+  );
   }
 
   Widget _buildTopFiled() {
@@ -70,19 +135,19 @@ class SignInView extends StatelessWidget {
         SizedBox(height: 16,),
         Text("Litra: AR Draw",
           style: TextStyle(
-            fontSize: 36,
+            fontSize: 32,
             fontFamily: 'Outfit',
-            height: 1.2,
+            height: 1,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
         ),
-        Text("Welcome Back",
+        Text("Welcome",
           style: TextStyle(
-            fontSize: 28,
+            fontSize: 24,
             fontFamily: 'Outfit',
-            height: 1.2,
-            fontWeight: FontWeight.w700,
+            height: 1,
+            fontWeight: FontWeight.w400,
             color: Colors.white,
           ),
         )
@@ -90,7 +155,7 @@ class SignInView extends StatelessWidget {
     );
   }
 
-  Widget _buildTextFieldAre(BuildContext context) {
+  Widget _buildBottomContent(BuildContext context) {
     return Expanded(
       child: Container(
         width: double.infinity,
@@ -112,29 +177,27 @@ class SignInView extends StatelessWidget {
                       color: const Color(0xFF50C4ED),
                     ),
                   ),
-
                   SizedBox(height: 24),
-
-                  CustomInputField(
-                    title: "E-mail adress",
-                    icon: "assets/icons/email_icon.svg",
-                    hint: "example@gmail.com",
-                    controller: _fullNameController,
+                  Form(
+                    key: _formKey,
+                    child: _buildTextFiled()
                   ),
-                  SizedBox(height: 16),
-                  CustomInputField(
-                    title: "Password",
-                    icon: "assets/icons/lock_password_icon.svg",
-                    hint: "**************",
-                    controller: _fullNameController,
-                  ),
-                  SizedBox(height: 24),
+                  SizedBox(height: 12),
                   ContinueButton(
                     title: "Sing Up",
                     foregroundColor: Colors.white,
                     backgroundColor: Color(0xFF50C4ED),
                     onPressButton: () {
-                       context.go('/home');
+                      final viewModel = Provider.of<SigInViewModel>(context, listen: false);
+
+                      if(_formKey.currentState!.validate()){
+                        email = emailController.text;
+                        fullName = fullNameController.text;
+                        password = passwordController.text;
+                      }
+                      viewModel.register(email,password,fullName,(){
+                        context.go('/home');
+                      });
                     },
                     widthButton: 380,
                   ),
@@ -156,7 +219,7 @@ class SignInView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Outfit',
-                        height: 1.2,
+                        height: 1,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xFFC8C8C8),
                       )
@@ -164,7 +227,7 @@ class SignInView extends StatelessWidget {
                   SizedBox(height: 18,),
                   SvgPicture.asset(
                     "assets/icons/google_icon.svg", width: 36, height: 36,),
-                  SizedBox(height: 18,),
+                  SizedBox(height: 12,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -174,7 +237,7 @@ class SignInView extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Outfit',
-                            height: 1.2,
+                            height: 1,
                             fontWeight: FontWeight.w400,
                             color: const Color(0xFFC8C8C8),
                           )
@@ -190,7 +253,7 @@ class SignInView extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontFamily: 'Outfit',
-                              height: 1.2,
+                              height: 1,
                               fontWeight: FontWeight.w700,
                               color: const Color(0xFF50C4ED),
                             )
@@ -213,5 +276,56 @@ class SignInView extends StatelessWidget {
     );
   }
 
+  Widget _buildTextFiled() {
+    return Consumer<SigInViewModel>(builder: (context, viewModel, child) {
+      return Column(
+        children: [
+          CustomInputField(
+            title: "Full Name",
+            icon: "assets/icons/user_icon.svg",
+            hint: "Aynur Turgut",
+            controller: fullNameController,
+            validator: (value) {
+              if (value == "") {
+                return 'This place cant be empty';
+              }
+            },
+          ),
+          SizedBox(height: 16),
+          CustomInputField(
+            title: "E-mail adress",
+            icon: "assets/icons/email_icon.svg",
+            hint: "example@gmail.com",
+            controller: emailController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Email is required";
+              }
+              if (!value.contains("@gmail.com") && value.length >= 11) {
+                return "Invalid email format";
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 16),
+          CustomInputField(
+            title: "Password",
+            icon: "assets/icons/lock_password_icon.svg",
+            hint: "**************",
+            controller: passwordController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Enter your password';
+              }
+              if (value.length < 8) {
+                return 'Your password must be at least 8 characters.';
+              }
+              return null;
+            },
+          ),
+        ],
+      );
+    });
 
+  }
 }
