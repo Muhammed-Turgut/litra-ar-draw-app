@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class ProfileButton extends StatelessWidget {
@@ -26,7 +25,7 @@ class ProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widthButton,
-      height: 60.h,
+      height: 60,
       child: ElevatedButton(
           onPressed: () {
             onPressButton();
@@ -46,7 +45,7 @@ class ProfileButton extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 16,
               fontFamily: 'Outfit',
               fontWeight: FontWeight.w600,
             ),

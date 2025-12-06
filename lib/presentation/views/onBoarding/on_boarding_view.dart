@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/common/custom_button.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -56,25 +56,25 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget _buildImageFiled(String image) {
     return Container(
       width: double.infinity,
-      height: 582.h,
+      height: 582,
       child: Stack(
         clipBehavior: Clip.hardEdge,
         children: [
           Positioned.fill(
             child: Column(
               children: [
-                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412.w,height: 215.h,)),
-                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412.w,height: 215.h,)),
-                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412.w,height: 215.h,)),
-                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412.w,height: 215.h,)),
+                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412,height: 215,)),
+                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412,height: 215,)),
+                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412,height: 215,)),
+                Expanded(child: SvgPicture.asset("assets/images/backgroun_materyal.svg",width: 412,height: 215,)),
               ],
             ),
           ),
 
-          Image.asset(image,width: double.infinity, height: 556.h,fit: BoxFit.cover, ),
+          Image.asset(image,width: double.infinity, height: 556,fit: BoxFit.cover, ),
 
           Positioned(
-            bottom: 16.h,
+            bottom: 16,
             left: 0,
             right: 0,
             child: Align(
@@ -82,24 +82,24 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               child: Row(
                 mainAxisSize: MainAxisSize.min, // <-- önemli
                 children: [
-                  Container(width: _selectedPage == 0 ? 36.w : 18.w, height: 12.h,
+                  Container(width: _selectedPage == 0 ? 36 : 18, height: 12,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(100.r))
+                    borderRadius: BorderRadius.all(Radius.circular(100))
                    ),
                   ),
-                  SizedBox(width: 8.w),
-                  Container(width: _selectedPage == 1 ? 36.w : 18.w, height: 12.h,
+                  SizedBox(width: 8),
+                  Container(width: _selectedPage == 1 ? 36 : 18, height: 12,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(100.r))
+                        borderRadius: BorderRadius.all(Radius.circular(100))
                     ),
                   ),
-                  SizedBox(width: 8.w),
-                  Container(width: _selectedPage == 2 ? 36.w : 18.w , height: 12.h,
+                  SizedBox(width: 8),
+                  Container(width: _selectedPage == 2 ? 36 : 18 , height: 12,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(100.r))
+                        borderRadius: BorderRadius.all(Radius.circular(100))
                     ),
                   ),
                 ],
@@ -121,32 +121,32 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 28.h, left: 16.w, right: 16.w),
+          padding: EdgeInsets.only(top: 28, left: 16, right: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 28.sp,
+                    fontSize: 28,
                     color: Color(0xFF50C4ED),
                     height: 1.2,
                     fontFamily: 'Outfit',
                     fontWeight: FontWeight.w700
                 ),
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
               Text(explanation,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 18,
                     color: Color(0xFFC8C8C8),
                     fontFamily: 'Outfit',
                     height: 1.1,
                     fontWeight: FontWeight.w500
                 ),
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
               if( _selectedPage == 0)
                 CustomButton(
                   title: "Devam et",
@@ -157,7 +157,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   },
                   backgroundColor: Color(0xFF50C4ED),
                   foregroundColor: Colors.white,
-                  widthButton: 380.w,
+                  widthButton: 380,
                 )
               else if(_selectedPage == 1 || _selectedPage == 2)
                 Row(
@@ -174,22 +174,29 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                         foregroundColor: Color(0xFF50C4ED),
                         borderWidth: 1,
                         icon: "chevron_left_icon.svg",
-                        widthButton: 130.w,
+                        widthButton: 130,
                       ),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 10),
                      Expanded(
                        child: CustomButton(
-                            title: "Devam et",
+                            title: _selectedPage == 2 ? "Başla" : "Devam et",
                             onPressButton: (){
                               // Burada son sayfadan sonra ne yapılacağına karar verilebilir (örneğin ana sayfaya yönlendirme)
                               // Şimdilik sadece sayfa artırma işlevi ekleniyor.
-                              setState(() {
-                                _selectedPage = _selectedPage + 1;
-                              });
+
+                              if(_selectedPage == 2){
+                                context.go('/logIn');
+                              }
+                              else{
+                                setState(() {
+                                  _selectedPage = _selectedPage + 1;
+                                });
+                              }
+
                             },
                             backgroundColor: Color(0xFF50C4ED),
                             foregroundColor: Colors.white,
-                            widthButton: 242.w,
+                            widthButton: 242,
                           ),
                      )
                   ],

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:litra_ar_draw_app/presentation/views/sigin/signin_view.dart';
-import 'package:litra_ar_draw_app/presentation/widgets/profile/custom_input_field.dart';
-import 'package:litra_ar_draw_app/presentation/widgets/profile/profile_button.dart';
+import 'package:go_router/go_router.dart';
+import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.dart';
+import 'package:litra_ar_draw_app/presentation/widgets/login/profile_button.dart';
+
 
 class LoginView extends StatelessWidget {
   TextEditingController _fullNameController = TextEditingController();
@@ -24,37 +24,37 @@ class LoginView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(child: SvgPicture.asset(
-              "assets/images/backgroun_materyal.svg", width: 412.w,
-              height: 215.h,
+              "assets/images/backgroun_materyal.svg", width: 412,
+              height: 215,
               fit: BoxFit.cover,)),
             Expanded(child: SvgPicture.asset(
-              "assets/images/backgroun_materyal.svg", width: 412.w,
-              height: 215.h,
+              "assets/images/backgroun_materyal.svg", width: 412,
+              height: 215,
               fit: BoxFit.cover,)),
             Expanded(child: SvgPicture.asset(
-              "assets/images/backgroun_materyal.svg", width: 412.w,
-              height: 215.h,
+              "assets/images/backgroun_materyal.svg", width: 412,
+              height: 215,
               fit: BoxFit.cover,)),
             Expanded(child: SvgPicture.asset(
-              "assets/images/backgroun_materyal.svg", width: 412.w,
-              height: 215.h,
+              "assets/images/backgroun_materyal.svg", width: 412,
+              height: 215,
               fit: BoxFit.cover,)),
             Expanded(child: SvgPicture.asset(
-              "assets/images/backgroun_materyal.svg", width: 412.w,
-              height: 215.h,
+              "assets/images/backgroun_materyal.svg", width: 412,
+              height: 215,
               fit: BoxFit.cover,)),
             Expanded(child: SvgPicture.asset(
-              "assets/images/backgroun_materyal.svg", width: 412.w,
-              height: 215.h,
+              "assets/images/backgroun_materyal.svg", width: 412,
+              height: 215,
               fit: BoxFit.cover,)),
           ],
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(height: 20.h,),
+            SizedBox(height: 20,),
             _buildTopFiled(),
-            SizedBox(height: 28.h,),
+            SizedBox(height: 28,),
             _buildTextFieldAre(context)
           ],
         )
@@ -66,22 +66,22 @@ class LoginView extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset("assets/images/app_logo.png", width: 128.w, height: 128.h),
-        SizedBox(height: 16.h,),
+        Image.asset("assets/images/app_logo.png", width: 128, height: 128),
+        SizedBox(height: 16,),
         Text("Litra: AR Draw",
           style: TextStyle(
-            fontSize: 36.sp,
+            fontSize: 36,
             fontFamily: 'Outfit',
-            height: 1.2.h,
+            height: 1.2,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
         ),
-        Text("Welcome",
+        Text("Welcome Back",
           style: TextStyle(
-            fontSize: 28.sp,
+            fontSize: 28,
             fontFamily: 'Outfit',
-            height: 1.2.h,
+            height: 1.2,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
@@ -103,11 +103,11 @@ class LoginView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Create your Account",
+                    "Login to your Account",
                     style: TextStyle(
-                      fontSize: 28.sp,
+                      fontSize: 28,
                       fontFamily: 'Outfit',
-                      height: 1.2.h,
+                      height: 1.2,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF50C4ED),
                     ),
@@ -135,53 +135,53 @@ class LoginView extends StatelessWidget {
                     hint: "**************",
                     controller: _fullNameController,
                   ),
-                  SizedBox(height: 24.h),
+                  SizedBox(height: 24),
                   ProfileButton(
                     title: "Sign Up",
                     foregroundColor: Colors.white,
                     backgroundColor: Color(0xFF50C4ED),
                     onPressButton: () {
-
+                      context.go('/home');
                     },
-                    widthButton: 380.w,
+                    widthButton: 380,
                   ),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 12),
                   ProfileButton(
                     title: "Continue as guest",
                     foregroundColor: Color(0xFFC8C8C8),
                     backgroundColor: Colors.white,
                     onPressButton: () {
-
+                      context.go('/home');
                     },
-                    widthButton: 380.w,
+                    widthButton: 380,
                     borderWidth: 1,
                   ),
-                  SizedBox(height: 12.h,),
+                  SizedBox(height: 12,),
                   Text(
                       "Or continue with",
                       // Yazım hatasını düzelttim: Creat -> Create
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontFamily: 'Outfit',
-                        height: 1.2.h,
+                        height: 1.2,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xFFC8C8C8),
                       )
                   ),
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18,),
                   SvgPicture.asset(
-                    "assets/icons/google_icon.svg", width: 36.w, height: 36.h,),
-                  SizedBox(height: 18.h,),
+                    "assets/icons/google_icon.svg", width: 36, height: 36,),
+                  SizedBox(height: 18,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          "Do you have an account?",
+                          "Don’t have an account? ",
                           // Yazım hatasını düzelttim: Creat -> Create
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontFamily: 'Outfit',
-                            height: 1.2.h,
+                            height: 1.2,
                             fontWeight: FontWeight.w400,
                             color: const Color(0xFFC8C8C8),
                           )
@@ -190,14 +190,14 @@ class LoginView extends StatelessWidget {
 
                       GestureDetector(
                         onTap: (){
-                          _pageRoute(context);
+                          context.go('/signUp');
                         },
                         child:  Text(
-                            "Log in", // Yazım hatasını düzelttim: Creat -> Create
+                            "Sign in", // Yazım hatasını düzelttim: Creat -> Create
                             style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: 16,
                               fontFamily: 'Outfit',
-                              height: 1.2.h,
+                              height: 1.2,
                               fontWeight: FontWeight.w700,
                               color: const Color(0xFF50C4ED),
                             )
@@ -214,18 +214,10 @@ class LoginView extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topRight: Radius.circular(32.r), topLeft: Radius.circular(32.r))
+                topRight: Radius.circular(32), topLeft: Radius.circular(32))
         ),
       ),
     );
   }
 
-  void _pageRoute(BuildContext context){
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SignInView(),
-      ),
-    );
-  }
 }

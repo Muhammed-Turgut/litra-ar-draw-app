@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomInputField extends StatelessWidget {
@@ -29,7 +28,7 @@ class CustomInputField extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: Padding(
           padding: EdgeInsets.only(left: 10, right: 8),
-          child: SvgPicture.asset(icon, width: 18.w, height: 18.h),
+          child: SvgPicture.asset(icon, width: 18, height: 18),
         ),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         filled: true,

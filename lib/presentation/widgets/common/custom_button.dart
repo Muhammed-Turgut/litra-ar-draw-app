@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomButton extends StatelessWidget {
@@ -30,7 +27,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widthButton,
-      height: 60.h,
+      height: 60,
       child: ElevatedButton(
           onPressed: () {
             onPressButton();
@@ -54,26 +51,26 @@ class CustomButton extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontFamily: 'Outfit',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   SvgPicture.asset(
                     "assets/icons/chevron_right_icon.svg",
-                    width: 24.w,
-                    height: 24.h,
+                    width: 24,
+                    height: 24,
                   ),
                 ] else ...[
                   SvgPicture.asset(
                     "assets/icons/chevron_left_icon.svg",
-                    width: 24.w,
-                    height: 24.h,
+                    width: 24,
+                    height: 24,
                   ),
                   Text(
                     title,
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontFamily: 'Outfit',
                       fontWeight: FontWeight.w600,
                     ),

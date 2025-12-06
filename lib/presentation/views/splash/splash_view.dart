@@ -1,9 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
-class SplashView extends StatelessWidget {
-  const SplashView({super.key});
+class SplashView extends StatefulWidget {
+
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setEnabledSystemUIMode((SystemUiMode.immersive));
+
+    Future.delayed(const Duration(seconds: 3),(){
+      context.go('/onBoarding');
+     }
+    );
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +39,6 @@ class SplashView extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    
     return Stack(
       children: [
         Column(
@@ -28,7 +52,6 @@ class SplashView extends StatelessWidget {
             SvgPicture.asset("assets/images/backgroun_materyal.svg",fit: BoxFit.contain),
            ],
         ),
-        
         Padding(
           padding: const EdgeInsets.only(bottom: 200.0),
           child: Center(
@@ -62,6 +85,5 @@ class SplashView extends StatelessWidget {
         )
       ],
     );
-    
   }
 }
