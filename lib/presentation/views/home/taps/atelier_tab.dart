@@ -19,7 +19,10 @@ class AtelierTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
        backgroundColor: Color(0xFF50C4ED),
-       body: _buildBody(),
+       body: SafeArea(
+         bottom: true,
+           top: true,
+           child: _buildBody()),
     );
   }
 

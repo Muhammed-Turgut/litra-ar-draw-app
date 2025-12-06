@@ -21,7 +21,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     OnBoardingItem(
         image: "assets/images/on_boarding_midel_image.png",
         title: "Kılavuz Çizgilerle Daha\nDoğru Çiz",
-        explanation: "Uygulama, adım adım çizmen için sana rehber\nçizgiler sunar. İster basit ister detaylı çizimler\nyap, her seferinde daha iyi ol.",
+        explanation: "Uygulama, adım adım çizmen için sana rehber çizgiler sunar. İster basit ister detaylı çizimler yap.",
         pageNumber: 2
     ),
     OnBoardingItem(
@@ -38,7 +38,11 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _buildBody(),
+      body: SafeArea(
+          top: true,
+          bottom: true,
+          child: _buildBody()
+      ) ,
     );
   }
 
@@ -56,7 +60,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget _buildImageFiled(String image) {
     return Container(
       width: double.infinity,
-      height: 582,
       child: Stack(
         clipBehavior: Clip.hardEdge,
         children: [
@@ -71,7 +74,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             ),
           ),
 
-          Image.asset(image,width: double.infinity, height: 556,fit: BoxFit.cover, ),
+          Image.asset(image,width: double.infinity, height: 520,fit: BoxFit.cover, ),
 
           Positioned(
             bottom: 16,

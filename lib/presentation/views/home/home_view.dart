@@ -29,7 +29,10 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-       body: _pages[_selectedIndex],
+       body: SafeArea(
+           top: true,
+           bottom: true,
+           child: _pages[_selectedIndex]),
        bottomNavigationBar: HomeBottomNavBar(
            currentIndex: _selectedIndex,
            onTap: (index){

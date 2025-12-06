@@ -16,22 +16,25 @@ class HomeBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem("selected_atelier_icon.svg", "default_atelier_icon.svg", "Atelier", 0),
-            _buildNavItem("selected_explore_icon.svg", "default_explore_icon.svg", "Explore", 1),
-            _buildNavItem("palette_icon.svg", "palette_icon.svg", "", 2),
-            _buildNavItem("selected_favorite_icon.svg", "default_favorite_icon.svg", "Favorites", 3),
-            _buildNavItem("selected_profile_icon.svg", "default_profile_icon.svg", "Profile", 4),
-          ],
-        ),
-    );
+    return SafeArea(
+      top: true,
+      bottom: true,
+      child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildNavItem("selected_atelier_icon.svg", "default_atelier_icon.svg", "Atelier", 0),
+          _buildNavItem("selected_explore_icon.svg", "default_explore_icon.svg", "Explore", 1),
+          _buildNavItem("palette_icon.svg", "palette_icon.svg", "", 2),
+          _buildNavItem("selected_favorite_icon.svg", "default_favorite_icon.svg", "Favorites", 3),
+          _buildNavItem("selected_profile_icon.svg", "default_profile_icon.svg", "Profile", 4),
+        ],
+      ),
+    ));
 
   }
 

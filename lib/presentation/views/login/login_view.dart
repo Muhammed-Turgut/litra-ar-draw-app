@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.dart';
-import 'package:litra_ar_draw_app/presentation/widgets/login/profile_button.dart';
+import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dart';
 
 
 class LoginView extends StatelessWidget {
@@ -13,7 +13,10 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF50C4ED),
-      body: _buildBody(context),
+      body: SafeArea(
+          top: true,
+          bottom: true,
+          child: _buildBody(context)),
     );
   }
 
@@ -72,7 +75,7 @@ class LoginView extends StatelessWidget {
           style: TextStyle(
             fontSize: 36,
             fontFamily: 'Outfit',
-            height: 1.2,
+            height: 1.0,
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
@@ -135,8 +138,8 @@ class LoginView extends StatelessWidget {
                     hint: "**************",
                     controller: _fullNameController,
                   ),
-                  SizedBox(height: 24),
-                  ProfileButton(
+                  SizedBox(height: 16),
+                  ContinueButton(
                     title: "Sign Up",
                     foregroundColor: Colors.white,
                     backgroundColor: Color(0xFF50C4ED),
@@ -145,8 +148,8 @@ class LoginView extends StatelessWidget {
                     },
                     widthButton: 380,
                   ),
-                  SizedBox(height: 12),
-                  ProfileButton(
+                  SizedBox(height: 8),
+                  ContinueButton(
                     title: "Continue as guest",
                     foregroundColor: Color(0xFFC8C8C8),
                     backgroundColor: Colors.white,
@@ -156,7 +159,7 @@ class LoginView extends StatelessWidget {
                     widthButton: 380,
                     borderWidth: 1,
                   ),
-                  SizedBox(height: 12,),
+                  SizedBox(height: 8,),
                   Text(
                       "Or continue with",
                       // Yazım hatasını düzelttim: Creat -> Create
@@ -168,10 +171,10 @@ class LoginView extends StatelessWidget {
                         color: const Color(0xFFC8C8C8),
                       )
                   ),
-                  SizedBox(height: 18,),
+                  SizedBox(height: 8,),
                   SvgPicture.asset(
                     "assets/icons/google_icon.svg", width: 36, height: 36,),
-                  SizedBox(height: 18,),
+                  SizedBox(height: 8,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

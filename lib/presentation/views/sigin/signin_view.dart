@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.dart';
-import 'package:litra_ar_draw_app/presentation/widgets/login/profile_button.dart';
+import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dart';
 
 class SignInView extends StatelessWidget {
   TextEditingController _fullNameController = TextEditingController();
@@ -129,7 +129,7 @@ class SignInView extends StatelessWidget {
                     controller: _fullNameController,
                   ),
                   SizedBox(height: 24),
-                  ProfileButton(
+                  ContinueButton(
                     title: "Sing Up",
                     foregroundColor: Colors.white,
                     backgroundColor: Color(0xFF50C4ED),
@@ -139,7 +139,7 @@ class SignInView extends StatelessWidget {
                     widthButton: 380,
                   ),
                   SizedBox(height: 12),
-                  ProfileButton(
+                  ContinueButton(
                     title: "Continue as guest",
                     foregroundColor: Color(0xFFC8C8C8),
                     backgroundColor: Colors.white,

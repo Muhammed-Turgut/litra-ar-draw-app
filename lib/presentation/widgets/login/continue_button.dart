@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-class ProfileButton extends StatelessWidget {
+class ContinueButton extends StatelessWidget {
 
   final String title;
   final Color? backgroundColor;
@@ -11,7 +11,7 @@ class ProfileButton extends StatelessWidget {
   final VoidCallback onPressButton;
   final double widthButton;
 
-  const ProfileButton({
+  const ContinueButton({
     Key? key,
     required this.title,
     required this.onPressButton,

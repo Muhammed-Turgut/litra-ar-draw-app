@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:litra_ar_draw_app/core/router/app_router.dart';
-import 'package:provider/provider.dart';
 
-void main() {
+
+void main() async {
+
+  ///Uygulamanın sadece dikey moda kullanılmasını sağlamak için ekranı dikey moda kitledim.
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  ///
+
   runApp(MyApp());
 }
 
