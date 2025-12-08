@@ -20,6 +20,7 @@ class LoginViewModel with ChangeNotifier{
      });
    }
 
+   ///login fonksiyonu kullanıcının giriş yapmasını sağlar.
    Future<void> login(String email,String password, Function goRoute) async{
      try{
 
@@ -37,4 +38,14 @@ class LoginViewModel with ChangeNotifier{
 
    }
 
+   ///Reset Password Process - Bu fonksiyon şifre sıfırlama işleminde kullanılır.
+  Future<void> resetPassword(String email, Function function) async{
+     try{
+       await loginUserUseCase.resetPassword(email: email);
+       function();
+       notifyListeners();
+     } on FirebaseAuthException catch(e){
+          debugPrint("Sorun bulundu: ${e}");
+     }
+  }
 }

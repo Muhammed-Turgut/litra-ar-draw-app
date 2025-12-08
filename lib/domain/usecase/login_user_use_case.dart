@@ -22,4 +22,12 @@ class LoginUserUseCase{
     await repository.loginUser(email: email, password: password);
   }
 
+  //şifreyi sıfırlama işlemleri
+  Future<void> resetPassword({required String email}) async{
+    if(email.isEmpty){
+      throw Exception("Tüm alanları doldurun");
+    }
+    await repository.resetPassword(email: email);
+  }
+
 }

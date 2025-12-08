@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:litra_ar_draw_app/presentation/views/forget_password/forget_password_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/home/home_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/noInternet/no_internet_view.dart';
@@ -60,6 +61,13 @@ class AppRouter{
           path: '/noInternet',
           name: 'noInternet',
           builder: (context,state) => NoInternetView()
+      ),
+
+      GoRoute(
+        //Kullanıcı şifresini unutmuşsa burdan gidicek ve şifresini sıfırlayacak.
+          path: '/forgetPassword',
+          name: 'forgetPassword',
+          builder: (context,state) => ForgetPasswordView()
       )
 
 

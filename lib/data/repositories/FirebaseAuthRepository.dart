@@ -34,4 +34,9 @@ class FirebaseAuthRepository implements AuthRepository{
       await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
+  @override
+  Future<void> resetPassword({required String email}) async{
+     await _auth.sendPasswordResetEmail(email: email);
+  }
+
 }

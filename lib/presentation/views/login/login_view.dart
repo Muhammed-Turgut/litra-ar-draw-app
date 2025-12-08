@@ -312,6 +312,28 @@ class LoginView extends StatelessWidget {
                 return null;
               }
           ),
+          SizedBox(height: 4,),
+          GestureDetector(
+            onTap:(){
+              context.go('/forgetPassword');
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("forget password",
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF969696),
+                      fontFamily: 'Outfit',
+                      fontWeight: FontWeight.w400,
+                      decoration: TextDecoration.underline
+                  ),
+                )
+              ],
+            ),
+          )
+
         ],
       );
      }
