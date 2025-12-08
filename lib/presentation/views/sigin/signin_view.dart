@@ -25,7 +25,6 @@ class SignInView extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    final viewModel = Provider.of<SigInViewModel>(context, listen: false);
     return Stack(
       children: [
         Column(
@@ -70,7 +69,6 @@ class SignInView extends StatelessWidget {
     Consumer<SigInViewModel>(
     builder: (context, viewModel, child) {
     if (viewModel.errorMessage == null) return SizedBox();
-
     return Align(
        alignment: Alignment.bottomCenter,
        child: Column(

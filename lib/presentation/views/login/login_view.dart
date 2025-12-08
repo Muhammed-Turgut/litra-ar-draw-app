@@ -2,14 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:litra_ar_draw_app/presentation/view_models/login_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dart';
+import 'package:provider/provider.dart';
 
 
 class LoginView extends StatelessWidget {
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  String email ="",password ="";
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +68,60 @@ class LoginView extends StatelessWidget {
             SizedBox(height: 28,),
             _buildTextFieldAre(context)
           ],
+        ),
+
+        Consumer<LoginViewModel>(
+          builder: (context, viewModel, child) {
+            if (viewModel.errorMessage == null) return SizedBox();
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // PROGRESS BAR (3 saniye)
+                  TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 1.0, end: 0.0),
+                    duration: Duration(seconds: 3),
+                    builder: (context, value, _) {
+                      return LinearProgressIndicator(
+                        value: value,
+                        backgroundColor: Color(0xFF50C4ED).withOpacity(0.3),
+                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF50C4ED)),
+                      );
+                    },
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF50C4ED),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(0),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.error, color: Colors.white),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            viewModel.errorMessage!,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Outfit',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         )
       ],
     );
@@ -119,19 +179,9 @@ class LoginView extends StatelessWidget {
                   ),
 
                   SizedBox(height: 24),
-
-                  CustomInputField(
-                    title: "E-mail adress",
-                    icon: "assets/icons/email_icon.svg",
-                    hint: "example@gmail.com",
-                    controller: _emailController,
-                  ),
-                  SizedBox(height: 16),
-                  CustomInputField(
-                    title: "Password",
-                    icon: "assets/icons/lock_password_icon.svg",
-                    hint: "**************",
-                    controller: _passwordController,
+                  Form(
+                    key: _formKey,
+                      child: _buildTextField()
                   ),
                   SizedBox(height: 16),
                   ContinueButton(
@@ -139,7 +189,16 @@ class LoginView extends StatelessWidget {
                     foregroundColor: Colors.white,
                     backgroundColor: Color(0xFF50C4ED),
                     onPressButton: () {
-                      context.go('/home');
+                      final viewModel = Provider.of<LoginViewModel>(context, listen: false);
+
+                      if(_formKey.currentState!.validate()){
+                        email = _emailController.text;
+                        password = _passwordController.text;
+                      }
+                      viewModel.login(email,password,(){
+                        context.go('/home');
+                       }
+                      );
                     },
                     widthButton: 380,
                   ),
@@ -216,6 +275,48 @@ class LoginView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildTextField() {
+   return Consumer<LoginViewModel>(builder: (context,viewModel,child){
+      return  Column(
+        children: [
+          CustomInputField(
+            title: "E-mail adress",
+            icon: "assets/icons/email_icon.svg",
+            hint: "example@gmail.com",
+            controller: _emailController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Email is required";
+              }
+              if (!value.contains("@gmail.com") && value.length >= 11) {
+                return "Invalid email format";
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 16),
+          CustomInputField(
+              title: "Password",
+              icon: "assets/icons/lock_password_icon.svg",
+              hint: "**************",
+              controller: _passwordController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter your password';
+                }
+                if (value.length < 8) {
+                  return 'Your password must be at least 8 characters.';
+                }
+                return null;
+              }
+          ),
+        ],
+      );
+     }
+    );
+
   }
 
 }

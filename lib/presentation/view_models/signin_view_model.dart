@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:litra_ar_draw_app/core/errors/app_error.dart';
 
 import '../../domain/usecase/register_user_use_case.dart';
 
@@ -13,7 +13,7 @@ class SigInViewModel with ChangeNotifier {
   String? errorMessage;
 
   void setError(String message) {
-    errorMessage = message;
+    errorMessage = AppError().errorType(message);
     notifyListeners();
 
     Future.delayed(Duration(seconds: 3), () {
@@ -24,15 +24,15 @@ class SigInViewModel with ChangeNotifier {
 
   Future<void> register(String email, String password, String fullName, Function goRoute) async {
     try {
-      await registerUserUseCase.execute(
+      await registerUserUseCase.register(
         email: email,
         password: password,
         fullName: fullName,
       );
       errorMessage = null;
       goRoute();
-    } catch (e) {
-      setError(e.toString());
+    } on FirebaseAuthException catch(e){
+      setError(e.code);
     }
   }
 

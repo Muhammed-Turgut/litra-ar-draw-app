@@ -13,6 +13,7 @@ class FirebaseAuthRepository implements AuthRepository{
     required String password,
     required String fullName,
   }) async {
+
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -26,6 +27,11 @@ class FirebaseAuthRepository implements AuthRepository{
     });
 
     return userCredential;
+  }
+
+  @override
+  Future<void> loginUser({required String email, required String password}) async {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
 }
