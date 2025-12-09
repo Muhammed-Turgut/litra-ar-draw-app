@@ -146,10 +146,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     color: Color(0xFFC8C8C8),
                     fontFamily: 'Outfit',
                     height: 1.1,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w400
                 ),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 24),
               if( _selectedPage == 0)
                 CustomButton(
                   title: "Devam et",
