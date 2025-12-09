@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:litra_ar_draw_app/core/errors/app_error.dart';
-
-import '../../domain/usecase/register_user_use_case.dart';
-
+import 'package:litra_ar_draw_app/domain/usecase/register_user_use_case.dart';
 
 class SigInViewModel with ChangeNotifier {
   final RegisterUserUseCase registerUserUseCase;
@@ -22,7 +20,7 @@ class SigInViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> register(String email, String password, String fullName, Function goRoute) async {
+  Future<void> register(String email, String password, String fullName, Function function) async {
     try {
       await registerUserUseCase.register(
         email: email,
@@ -30,8 +28,9 @@ class SigInViewModel with ChangeNotifier {
         fullName: fullName,
       );
       errorMessage = null;
-      goRoute();
+      function();
     } on FirebaseAuthException catch(e){
+      debugPrint("sorun bulundu: ${e}");
       setError(e.code);
     }
   }

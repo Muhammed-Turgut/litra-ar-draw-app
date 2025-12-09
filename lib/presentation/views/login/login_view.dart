@@ -213,7 +213,7 @@ class LoginView extends StatelessWidget {
                     widthButton: 380,
                     borderWidth: 1,
                   ),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 24,),
                   Text(
                       "Or continue with",
                       // Yazım hatasını düzelttim: Creat -> Create
@@ -225,10 +225,10 @@ class LoginView extends StatelessWidget {
                         color: const Color(0xFFC8C8C8),
                       )
                   ),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 16,),
                   SvgPicture.asset(
                     "assets/icons/google_icon.svg", width: 36, height: 36,),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 16,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 abstract class AuthRepository{
 
@@ -14,6 +15,14 @@ abstract class AuthRepository{
   });
 
   Future<void> resetPassword({required String email});
+
+  Future<void> withGoogleSignUp({
+    required String fullName,
+    required String email,
+    required String uid,
+  });
+
+  Future<void> signInWithGoogle({ required BuildContext context});
 
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/signin_view_model.dart';
+import 'package:litra_ar_draw_app/presentation/widgets/common/custom_alert_dialog.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dart';
 import 'package:provider/provider.dart';
@@ -114,8 +115,6 @@ class SignInView extends StatelessWidget {
               ],
              ),
            ),
-
-
         ],
        ),
        );
@@ -194,7 +193,12 @@ class SignInView extends StatelessWidget {
                         password = passwordController.text;
                       }
                       viewModel.register(email,password,fullName,(){
-                        context.go('/home');
+                        //Kullanıcıya doğrulama maili gönderildiğine dair show dialog göstereceğim burda.
+                        _showCustomDialog(context,(){
+                            context.go('/logIn');
+                          }
+                        );
+
                       });
                     },
                     widthButton: 380,
@@ -210,7 +214,7 @@ class SignInView extends StatelessWidget {
                     widthButton: 380,
                     borderWidth: 1,
                   ),
-                  SizedBox(height: 12,),
+                  SizedBox(height: 24,),
                   Text(
                       "Or continue with",
                       // Yazım hatasını düzelttim: Creat -> Create
@@ -222,10 +226,10 @@ class SignInView extends StatelessWidget {
                         color: const Color(0xFFC8C8C8),
                       )
                   ),
-                  SizedBox(height: 18,),
+                  SizedBox(height: 16,),
                   SvgPicture.asset(
                     "assets/icons/google_icon.svg", width: 36, height: 36,),
-                  SizedBox(height: 12,),
+                  SizedBox(height: 16,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -325,5 +329,23 @@ class SignInView extends StatelessWidget {
       );
     });
 
+  }
+
+  void _showCustomDialog(BuildContext context, Function function) {
+    showDialog(
+      context: context,
+      barrierDismissible: true, // Diyalog dışına tıklanınca kapanma izni
+      builder: (BuildContext dialogContext) {
+        return CustomAlertDialog(
+          title: 'Confirmation email sent',
+          content: "Please check your email address. If you haven't received the verification code, try again with a valid email address.",
+          icons: "email_send_successful.svg",
+          buttonTitle: "continue",
+          onConfirm: () {
+            function();
+          },
+        );
+      },
+    );
   }
 }
