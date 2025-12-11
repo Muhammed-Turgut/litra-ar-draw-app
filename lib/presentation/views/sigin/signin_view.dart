@@ -17,6 +17,8 @@ class SignInView extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  SignInView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,6 +159,11 @@ class SignInView extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(32), topLeft: Radius.circular(32))
+        ),
         child: Padding(
             padding: const EdgeInsets.only(
                 left: 16, right: 16, top: 20, bottom: 16),
@@ -269,11 +276,6 @@ class SignInView extends StatelessWidget {
               ),
             )
         ),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(32), topLeft: Radius.circular(32))
-        ),
       ),
     );
   }
@@ -285,12 +287,13 @@ class SignInView extends StatelessWidget {
           CustomInputField(
             title: "Full Name",
             icon: "assets/icons/user_icon.svg",
-            hint: "Aynur Turgut",
+            hint: "Muhammed Turgut",
             controller: fullNameController,
             validator: (value) {
               if (value == "") {
                 return 'This place cant be empty';
               }
+              return null;
             },
           ),
           SizedBox(height: 16),

@@ -10,12 +10,14 @@ import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String email ="",password ="";
 
   final _formKey = GlobalKey<FormState>();
+
+  LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +162,11 @@ class LoginView extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(32), topLeft: Radius.circular(32))
+        ),
         child: Padding(
             padding: const EdgeInsets.only(
                 left: 16, right: 16, top: 20, bottom: 16),
@@ -226,8 +233,16 @@ class LoginView extends StatelessWidget {
                       )
                   ),
                   SizedBox(height: 16,),
-                  SvgPicture.asset(
-                    "assets/icons/google_icon.svg", width: 36, height: 36,),
+                Consumer<LoginViewModel>(builder: (context,viewModel,child) {
+                 return  GestureDetector(onTap: () {
+                   debugPrint("on Tap presss");
+                      viewModel.signInWithGoogle();
+                  },
+                    child: SvgPicture.asset(
+                      "assets/icons/google_icon.svg", width: 36, height: 36,),
+                  );
+                }),
+
                   SizedBox(height: 16,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -267,11 +282,6 @@ class LoginView extends StatelessWidget {
                 ],
               ),
             )
-        ),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(32), topLeft: Radius.circular(32))
         ),
       ),
     );

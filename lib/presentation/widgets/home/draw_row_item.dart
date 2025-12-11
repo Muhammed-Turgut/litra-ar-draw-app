@@ -10,13 +10,13 @@ class DrawRowItem extends StatelessWidget {
   final VoidCallback onTabItem;
   final int? index;
 
-  DrawRowItem({
-    Key?key,
+  const DrawRowItem({
+    super.key,
     required this.image,
     required this.state,
     required this.onTabItem,
     this.index
-  }): super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

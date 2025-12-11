@@ -5,13 +5,15 @@ import 'package:litra_ar_draw_app/domain/entitys/users_post_item.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/explore/vertical_score_bar.dart';
 
 class ExploreTab extends StatefulWidget {
+  const ExploreTab({super.key});
+
 
   @override
   State<ExploreTab> createState() => _ExploreTabState();
 }
 
 class _ExploreTabState extends State<ExploreTab> {
-  List<String> _categoryList = [
+  final List<String> _categoryList = [
     "All",
     "Basic",
     "Animals",
@@ -25,7 +27,7 @@ class _ExploreTabState extends State<ExploreTab> {
     "Fantasy"
   ];
 
- List<String> _postList = [
+ final List<String> _postList = [
       "",
    "",
    ""
@@ -56,7 +58,7 @@ class _ExploreTabState extends State<ExploreTab> {
   }
 
   Widget _buildUploadImageAre(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 138,
       child: Stack(
@@ -169,6 +171,11 @@ class _ExploreTabState extends State<ExploreTab> {
            //AspectRatio, içindeki widget’ın genişlik / yükseklik oranını korumaya zorlayan bir layout widget’tır.
              aspectRatio: 1,
              child:Container(
+           decoration: BoxDecoration(
+             color: Colors.white,
+             borderRadius: BorderRadius.all(Radius.circular(12)),
+             border: Border.all(color: Color(0xFFF5F5F5),width: 2)
+           ),
            child: Padding(
              padding: const EdgeInsets.all(8.0),
              child: Column(
@@ -277,11 +284,6 @@ class _ExploreTabState extends State<ExploreTab> {
                  )
                ],
              ),
-           ),
-           decoration: BoxDecoration(
-             color: Colors.white,
-             borderRadius: BorderRadius.all(Radius.circular(12)),
-             border: Border.all(color: Color(0xFFF5F5F5),width: 2)
            ),
            )
          ),

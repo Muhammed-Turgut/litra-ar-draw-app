@@ -8,13 +8,13 @@ class DrawCategoryItem extends StatelessWidget {
   final VoidCallback onTapMore;
   final VoidCallback onTapItem;
 
-  DrawCategoryItem({
-    Key? key,
+  const DrawCategoryItem({
+    super.key,
     required this.title,
     required this.list,
     required this.onTapMore,
     required this.onTapItem,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

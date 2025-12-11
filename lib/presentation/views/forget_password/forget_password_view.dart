@@ -9,12 +9,14 @@ import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.
 import 'package:provider/provider.dart';
 
 class ForgetPasswordView extends StatefulWidget {
+  const ForgetPasswordView({super.key});
+
   @override
   State<ForgetPasswordView> createState() => _ForgetPasswordViewState();
 }
 
 class _ForgetPasswordViewState extends State<ForgetPasswordView> {
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   String email ="";
 

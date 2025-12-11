@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dart';
 
 class NoInternetView extends StatelessWidget {
+  const NoInternetView({super.key});
+
 
   @override
   Widget build(BuildContext context) {

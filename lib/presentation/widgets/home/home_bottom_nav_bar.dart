@@ -10,8 +10,8 @@ class HomeBottomNavBar extends StatelessWidget {
   const HomeBottomNavBar({
     required this.currentIndex,
     required this.onTap,
-    Key? key,
-  }): super(key: key);
+    super.key,
+  });
 
 
   @override

@@ -30,7 +30,7 @@ class SigInViewModel with ChangeNotifier {
       errorMessage = null;
       function();
     } on FirebaseAuthException catch(e){
-      debugPrint("sorun bulundu: ${e}");
+      debugPrint("sorun bulundu: $e");
       setError(e.code);
     }
   }

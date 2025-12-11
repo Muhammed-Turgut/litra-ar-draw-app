@@ -5,13 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/common/custom_button.dart';
 
 class OnBoardingView extends StatefulWidget {
+  const OnBoardingView({super.key});
+
 
   @override
   State<OnBoardingView> createState() => _OnBoardingViewState();
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
-  List<OnBoardingItem> _onBoardingPageItem = [
+  final List<OnBoardingItem> _onBoardingPageItem = [
     OnBoardingItem(
       image: "assets/images/on_boarding_start_image.png",
       title: "Gerçek Dünyada Çizmeye\nBaşla",
@@ -60,6 +62,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget _buildImageFiled(String image) {
     return Container(
       width: double.infinity,
+      decoration: BoxDecoration(
+        color: Color(0xFF50C4ED),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(64),bottomRight: Radius.circular(64)),
+      ),
       child: Stack(
         clipBehavior: Clip.hardEdge,
         children: [
@@ -112,10 +118,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
 
         ],
-      ),
-      decoration: BoxDecoration(
-        color: Color(0xFF50C4ED),
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(64),bottomRight: Radius.circular(64)),
       ),
     );
   }

@@ -30,4 +30,9 @@ class LoginUserUseCase{
     await repository.resetPassword(email: email);
   }
 
+  Future<void> signInWithGoogle() async {
+    // Google ile kayıt olduktan sonra Firestore'a kullanıcı bilgilerini kaydet
+    repository.signInWithGoogle();
+  }
+
 }

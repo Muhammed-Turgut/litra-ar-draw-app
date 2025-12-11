@@ -8,14 +8,14 @@ class CustomInputField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
 
-  CustomInputField({
-      Key? key,
+  const CustomInputField({
+      super.key,
       required this.icon,
       required this.title,
       required this.controller,
       required this.hint,
       this.validator
-    }): super(key: key);
+    });
 
   @override
   Widget build(BuildContext context) {

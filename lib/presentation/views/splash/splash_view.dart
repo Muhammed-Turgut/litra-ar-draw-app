@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashView extends StatefulWidget {
+  const SplashView({super.key});
+
 
   @override
   State<SplashView> createState() => _SplashViewState();

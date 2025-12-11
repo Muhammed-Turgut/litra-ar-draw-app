@@ -1,4 +1,3 @@
-import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
 import 'package:litra_ar_draw_app/domain/repositories/auth_repository.dart';
 
 class RegisterUserUseCase {

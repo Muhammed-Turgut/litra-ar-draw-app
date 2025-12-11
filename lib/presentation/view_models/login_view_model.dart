@@ -11,7 +11,7 @@ class LoginViewModel with ChangeNotifier{
    String? errorMessage;
 
    void setError(String message) {
-     errorMessage = AppError().errorType(message);;
+     errorMessage = AppError().errorType(message);
      notifyListeners();
 
      Future.delayed(Duration(seconds: 3), () {
@@ -45,7 +45,13 @@ class LoginViewModel with ChangeNotifier{
        function();
        notifyListeners();
      } on FirebaseAuthException catch(e){
-          debugPrint("Sorun bulundu: ${e}");
+          debugPrint("Sorun bulundu: $e");
      }
   }
+
+
+   Future<void> signInWithGoogle() async {
+     // Google ile kayıt olduktan sonra Firestore'a kullanıcı bilgilerini kaydet
+     loginUserUseCase.signInWithGoogle();
+   }
 }

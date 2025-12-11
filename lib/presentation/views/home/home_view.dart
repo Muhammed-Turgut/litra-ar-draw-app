@@ -9,6 +9,8 @@ import 'package:litra_ar_draw_app/presentation/views/home/taps/share_tab.dart';
 import '../../widgets/home/home_bottom_nav_bar.dart';
 
 class HomeView extends StatefulWidget {
+  const HomeView({super.key});
+
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -17,7 +19,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
 
-  List<Widget> _pages =
+  final List<Widget> _pages =
   [
     AtelierTab(),
     ExploreTab(),

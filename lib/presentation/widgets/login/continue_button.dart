@@ -12,14 +12,14 @@ class ContinueButton extends StatelessWidget {
   final double widthButton;
 
   const ContinueButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.onPressButton,
     required this.widthButton,
     this.backgroundColor,
     this.foregroundColor,
     this.borderWidth,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

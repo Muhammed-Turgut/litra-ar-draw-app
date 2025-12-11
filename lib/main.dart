@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:litra_ar_draw_app/core/router/app_router.dart';
 import 'package:litra_ar_draw_app/domain/usecase/login_user_use_case.dart';
 import 'package:litra_ar_draw_app/firebase_options.dart';
@@ -21,6 +20,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   ///---------------------------------------
+
 
   ///------------Fierbase------------
   /// 1. Gerekli bağlamayı sağlar (Firebase'den önce mutlaka olmalı)
@@ -51,6 +51,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {

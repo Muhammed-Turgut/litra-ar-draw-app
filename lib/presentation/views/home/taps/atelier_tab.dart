@@ -6,13 +6,15 @@ import 'package:litra_ar_draw_app/presentation/widgets/home/draw_row_item.dart';
 
 class AtelierTab extends StatelessWidget {
 
-  List<DrawRowItem> _list = [
+  final List<DrawRowItem> _list = [
     DrawRowItem(image: "example_v.png", state: true, onTabItem: (){}),
     DrawRowItem(image: "example_vv.png", state: false, onTabItem: (){}),
     DrawRowItem(image: "example_vvv.png", state: true, onTabItem: (){}),
     DrawRowItem(image: "example_vvvv.png", state: false, onTabItem: (){}),
 
   ];
+
+  AtelierTab({super.key});
 
 
   @override
@@ -80,26 +82,32 @@ class AtelierTab extends StatelessWidget {
   Widget _buildContentField() {
     return Container(
       width: double.infinity,
+      decoration: BoxDecoration(
+        color: Color(0xFFFFFCF8),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(32),
+          topRight: Radius.circular(32),
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.only(left: 16,top: 24, right: 16, bottom: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            DrawCategoryItem(title: "Basic Drawing Categories",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "People Drawing",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "For Kids",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Basic",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Animals",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Nature",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Vehicles",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Countrys",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "People",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Buildings",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Fashion",onTapItem: (){},onTapMore: (){},list: _list),
             DrawCategoryItem(title: "Anime",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Cartoon",onTapItem: (){},onTapMore: (){},list: _list)
+            DrawCategoryItem(title: "Cartoons",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Fantasy",onTapItem: (){},onTapMore: (){},list: _list),
 
           ],
-        ),
-      ),
-      decoration: BoxDecoration(
-        color: Color(0xFFFFFCF8),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(32),
-          topRight: Radius.circular(32),
         ),
       ),
     );
