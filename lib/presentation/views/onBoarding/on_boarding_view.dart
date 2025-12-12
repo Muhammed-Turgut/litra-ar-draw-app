@@ -17,19 +17,19 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     OnBoardingItem(
       image: "assets/images/on_boarding_start_image.png",
       title: "Gerçek Dünyada Çizmeye\nBaşla",
-      explanation: "Telefon kameranı kullanarak çizimlerini\ngerçek mekâna taşı\n. AR ile çizim yapmak artık çok daha\nkolay ve eğlenceli.",
+      explanation: "Telefon kameranı kullanarak çizimlerini\ngerçek mekâna taşı.",
       pageNumber: 1
     ),
     OnBoardingItem(
         image: "assets/images/on_boarding_midel_image.png",
         title: "Kılavuz Çizgilerle Daha\nDoğru Çiz",
-        explanation: "Uygulama, adım adım çizmen için sana rehber çizgiler sunar. İster basit ister detaylı çizimler yap.",
+        explanation: "Uygulama, adım adım çizmen için sana rehber çizgiler sunar.",
         pageNumber: 2
     ),
     OnBoardingItem(
         image: "assets/images/on_boarding_finish_image.png",
         title: "Kaydet, Paylaş ve İlham Ver",
-        explanation: "Yaptığın AR çizimleri kaydedebilir ve\narkadaşlarınla hemen paylaşabilirsin.\nYaratıcılığını herkese göster!",
+        explanation: "Yaptığın AR çizimleri kaydedebilir ve\narkadaşlarınla hemen paylaşabilirsin.",
         pageNumber: 3
     ),
   ];
@@ -133,7 +133,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               Text(title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 24,
                     color: Color(0xFF50C4ED),
                     height: 1.2,
                     fontFamily: 'Outfit',
