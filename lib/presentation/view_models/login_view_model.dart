@@ -45,13 +45,23 @@ class LoginViewModel with ChangeNotifier{
        function();
        notifyListeners();
      } on FirebaseAuthException catch(e){
-          debugPrint("Sorun bulundu: $e");
+       setError(e.code);
      }
   }
 
 
-   Future<void> signInWithGoogle() async {
+   Future<UserCredential> signInWithGoogle(Function onSuccess) async {
      // Google ile kayıt olduktan sonra Firestore'a kullanıcı bilgilerini kaydet
-     loginUserUseCase.signInWithGoogle();
+     try {
+       final userCredential = await loginUserUseCase.signInWithGoogle();
+       if (userCredential.user != null) {
+         onSuccess(); // 🔥 Login başarılı → callback çalışır
+       }
+       return userCredential;
+
+     } on FirebaseAuthException catch (e) {
+       setError(e.message ?? e.code);
+       rethrow;
+     }
    }
 }

@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:litra_ar_draw_app/domain/repositories/auth_repository.dart';
 
 class LoginUserUseCase{
@@ -30,9 +31,9 @@ class LoginUserUseCase{
     await repository.resetPassword(email: email);
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<UserCredential> signInWithGoogle() async {
     // Google ile kayıt olduktan sonra Firestore'a kullanıcı bilgilerini kaydet
-    repository.signInWithGoogle();
+    return await repository.signInWithGoogle();
   }
 
 }

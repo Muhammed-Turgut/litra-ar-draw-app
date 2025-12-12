@@ -21,7 +21,6 @@ void main() async {
   ]);
   ///---------------------------------------
 
-
   ///------------Fierbase------------
   /// 1. Gerekli bağlamayı sağlar (Firebase'den önce mutlaka olmalı)
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +30,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   ///-----------------------
-
 
   final authRepository = FirebaseAuthRepository();
   ///Use casleri başlatığımız yer.
@@ -44,16 +42,12 @@ void main() async {
      providers:[
         ChangeNotifierProvider(create: (_) => SigInViewModel(registerUserUseCase: registerUserUseCase)),
         ChangeNotifierProvider(create: (_) => LoginViewModel(loginUserUseCase: loginUserUseCase))
-
      ],
      child:MyApp()
    ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

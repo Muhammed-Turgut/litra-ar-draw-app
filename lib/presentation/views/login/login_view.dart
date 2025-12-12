@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -234,10 +235,17 @@ class LoginView extends StatelessWidget {
                   ),
                   SizedBox(height: 16,),
                 Consumer<LoginViewModel>(builder: (context,viewModel,child) {
-                 return  GestureDetector(onTap: () {
-                   debugPrint("on Tap presss");
-                      viewModel.signInWithGoogle();
-                  },
+                 return  GestureDetector( onTap: () async {
+                   try {
+                     final userCredential = await viewModel.signInWithGoogle((){});
+
+                     if (userCredential.user != null) {
+                       context.go('/home');
+                     }
+                   } on FirebaseAuthException catch (e) {
+                     viewModel.setError(e.message ?? e.code);
+                   }
+                 },
                     child: SvgPicture.asset(
                       "assets/icons/google_icon.svg", width: 36, height: 36,),
                   );

@@ -97,6 +97,7 @@ class FirebaseAuthRepository implements AuthRepository {
           message: "Google girişi başarısız: ${e.toString()}",
         );
       }
+      rethrow;
     } on FirebaseAuthException {
       // FirebaseAuthException'ı olduğu gibi fırlat
       rethrow;
@@ -106,6 +107,8 @@ class FirebaseAuthRepository implements AuthRepository {
         code: 'UNKNOWN_ERROR',
         message: "Beklenmeyen hata: ${e.toString()}",
       );
+
+      rethrow;
     }
   }
 

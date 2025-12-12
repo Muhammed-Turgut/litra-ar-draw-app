@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,11 +21,18 @@ class _SplashViewState extends State<SplashView> {
 
     SystemChrome.setEnabledSystemUIMode((SystemUiMode.immersive));
 
-    Future.delayed(const Duration(seconds: 3),(){
-      context.go('/onBoarding');
-     }
-    );
+    FirebaseAuth.instance.authStateChanges().listen((User? user){
 
+      if(user == null){
+        context.go('/onBoarding');
+      }
+      else{
+        Future.delayed(const Duration(seconds: 3),(){
+          context.go('/home');
+        }
+        );
+      }
+    });
   }
 
   @override
@@ -74,7 +82,7 @@ class _SplashViewState extends State<SplashView> {
 
                 Text("Sanat parmak uçlarında",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontFamily: 'Outfit',
                       fontSize: 16,
                       height: 1.1,

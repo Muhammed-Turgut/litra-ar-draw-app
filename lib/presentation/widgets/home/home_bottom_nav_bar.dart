@@ -22,6 +22,7 @@ class HomeBottomNavBar extends StatelessWidget {
       child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(32), topRight: Radius.circular(32)),
         color: Colors.white,
       ),
       child: Row(
@@ -53,7 +54,8 @@ class HomeBottomNavBar extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset("assets/icons/${isActive ? selectedIcon : defaultIcon}",width: 24, height: 24),
+            SvgPicture.asset("assets/icons/${isActive ? selectedIcon : defaultIcon}",
+                width: selectedIcon == "palette_icon.svg" ? 28 : 24, height: selectedIcon == "palette_icon.svg" ? 28 : 24),
             if(isActive)
               Padding(padding: const EdgeInsets.only(left: 6),
                 child: Text(
