@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:litra_ar_draw_app/presentation/views/forget_password/forget_password_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/home/home_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/home/taps/detail_bottom_bar.dart';
 import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/noInternet/no_internet_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/onBoarding/on_boarding_view.dart';
@@ -53,6 +54,13 @@ class AppRouter{
           path: '/home',
           name: 'home',
           builder: (context,state) => HomeView()
+      ),
+
+      GoRoute(
+        //Home Screen - Ana Sayfa
+          path: '/home/detailBottomBar',
+          name: 'home-detailBottomBar',
+          builder: (context,state) => DetailBottomBar()
       ),
 
       //NoInternetView - internet olmaması durumunda gösterilecek ekran.
