@@ -18,7 +18,10 @@ class DrawCategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return GestureDetector(onTap: (){
+      onTapItem();
+    },
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
@@ -63,6 +66,7 @@ class DrawCategoryItem extends StatelessWidget {
 
         const SizedBox(height: 16),
       ],
+      )
     );
   }
 }

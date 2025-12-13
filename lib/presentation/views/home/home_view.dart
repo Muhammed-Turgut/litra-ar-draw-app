@@ -21,17 +21,22 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages =
-  [
-    AtelierTab(),
-    ExploreTab(),
-    DetailBottomBar(),
-    FavoriteTab(),
-    ProfileTab()
-  ];
+
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _pages =
+    [
+      AtelierTab(),
+      ExploreTab(),
+      DetailBottomBar(),
+      FavoriteTab(),
+      ProfileTab(onTap: (){
+        context.go('/home/levelView');
+      },
+      )
+    ];
+
     return  Scaffold(
        body: SafeArea(
            top: true,

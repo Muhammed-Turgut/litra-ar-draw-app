@@ -47,6 +47,14 @@ class _ExploreTabState extends State<ExploreTab> {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       children: [
+        SizedBox(height: 16),
+        Text("Explore", style: TextStyle(
+           color: Colors.black,
+           fontSize: 20,
+           fontFamily: 'Outfit',
+           fontWeight: FontWeight.w500
+          ),
+        ),
         SizedBox(height: 8),
         _buildUploadImageAre(context),
         SizedBox(height: 12),

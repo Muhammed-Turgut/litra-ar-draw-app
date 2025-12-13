@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/home/draw_category_item.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/home/draw_row_item.dart';
 
@@ -14,6 +15,9 @@ class AtelierTab extends StatelessWidget {
 
   ];
 
+  //Firebasde Storage de veri çekerken kullanılacak.
+ // final String BASE_URL = "https://firebasestorage.googleapis.com/v0/b/litra-ar-draw.firebasestorage.app/o/animal_color_duck.png?alt=media&token=";
+
   AtelierTab({super.key});
 
 
@@ -24,18 +28,18 @@ class AtelierTab extends StatelessWidget {
        body: SafeArea(
          bottom: true,
            top: true,
-           child: _buildBody()),
+           child: _buildBody(context)),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
 
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           _buildTopFiled(),
-          _buildContentField()
+          _buildContentField(context)
         ],
       ),
     );
@@ -79,7 +83,7 @@ class AtelierTab extends StatelessWidget {
     );
   }
 
-  Widget _buildContentField() {
+  Widget _buildContentField(BuildContext context) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -95,7 +99,10 @@ class AtelierTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            DrawCategoryItem(title: "Basic",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Basic",onTapItem: (){
+              context.go('/home/chooseDrawType');
+            },onTapMore: (){},list: _list),
+
             DrawCategoryItem(title: "Animals",onTapItem: (){},onTapMore: (){},list: _list),
             DrawCategoryItem(title: "Nature",onTapItem: (){},onTapMore: (){},list: _list),
             DrawCategoryItem(title: "Vehicles",onTapItem: (){},onTapMore: (){},list: _list),

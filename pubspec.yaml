@@ -68,6 +68,7 @@ flutter:
     - assets/icons/
     - assets/fonts/
     - assets/lang/
+    - assets/anim/
 
   fonts:
     - family: Outfit
