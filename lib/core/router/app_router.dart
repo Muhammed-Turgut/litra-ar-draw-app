@@ -4,7 +4,7 @@ import 'package:litra_ar_draw_app/presentation/views/choose_draw_type/choose_dra
 import 'package:litra_ar_draw_app/presentation/views/forget_password/forget_password_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/home/home_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/home/taps/detail_bottom_bar.dart';
-import 'package:litra_ar_draw_app/presentation/views/level_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/level/level_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/noInternet/no_internet_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/onBoarding/on_boarding_view.dart';

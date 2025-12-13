@@ -15,9 +15,13 @@ class _ChooseDrawTypeState extends State<ChooseDrawType> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFFFFCF8),
-      body: _buildBody(context)
+    return SafeArea(
+         top: true,
+         bottom: true,
+        child: Scaffold(
+        backgroundColor: Color(0xFFFFFCF8),
+        body: _buildBody(context)
+      )
     );
   }
 

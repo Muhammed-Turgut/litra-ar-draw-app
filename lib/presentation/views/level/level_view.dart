@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class LevelView extends StatelessWidget {
+
+   int _isActive = 0;
 
    List<LevelItem> _levelList = [
      LevelItem(
@@ -105,7 +108,7 @@ class LevelView extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildTopBar(),
+          _buildTopBar(context),
           SizedBox(
             width: double.infinity,       // Stack tam genişlik alsın
             child: Stack(
@@ -125,41 +128,41 @@ class LevelView extends StatelessWidget {
                   right: 0,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[0]),
+                      _buildLevelItem(_levelList[0], _isActive == 0),
                       //Image.asset("assets/images/seed_selected_image.png",width: 70, height: 70,)
                     ],
                   ),
                 ),
             ////----------///
                 Positioned(
-                  top: 184,
-                  left: 0,
-                  right: 100,// Ortalamak için
+                  top: 194,
+                  left: 100,
+                  right: 0,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[1]),
+                      _buildLevelItem(_levelList[1], _isActive == 1),
                     ],
                   ),
                 ),
 
                 Positioned(
                   top: 194,
-                  left: 100,
-                  right: 0,// Ortalamak için
+                  left: 0,
+                  right: 100,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[2]),
+                      _buildLevelItem(_levelList[2], _isActive == 2),
                     ],
                   ),
                 ),
             ////----------///
                 Positioned(
-                  top: 358,
+                  top: 348,
                   left: 0,
                   right: 0,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[3]),
+                      _buildLevelItem(_levelList[3], _isActive == 3),
                     ],
                   ),
                 ),
@@ -171,7 +174,7 @@ class LevelView extends StatelessWidget {
                   right: 100,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[4]),
+                      _buildLevelItem(_levelList[4], _isActive == 4),
                     ],
                   ),
                 ),
@@ -182,7 +185,7 @@ class LevelView extends StatelessWidget {
                   right: 0,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[5]),
+                      _buildLevelItem(_levelList[5], _isActive == 5),
                     ],
                   ),
                 ),
@@ -193,19 +196,19 @@ class LevelView extends StatelessWidget {
                   right: 0,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[6]),
+                      _buildLevelItem(_levelList[6], _isActive == 6),
                     ],
                   ),
                 ),
 
                 ////----------///
                 Positioned(
-                  top: 850,
+                  top: 864,
                   left: 0,
                   right: 100,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[7]),
+                      _buildLevelItem(_levelList[7], _isActive == 7),
                     ],
                   ),
                 ),
@@ -216,7 +219,7 @@ class LevelView extends StatelessWidget {
                   right: 0,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[8]),
+                      _buildLevelItem(_levelList[8], _isActive == 8),
                     ],
                   ),
                 ),
@@ -228,7 +231,7 @@ class LevelView extends StatelessWidget {
                   right: 0,// Ortalamak için
                   child: Column(
                     children: [
-                      _buildLevelItem(_levelList[9]),
+                      _buildLevelItem(_levelList[9], _isActive == 9),
                     ],
                   ),
                 ),
@@ -260,12 +263,14 @@ class LevelView extends StatelessWidget {
         SvgPicture.asset("assets/images/backgroun_materyal.svg"),
         SizedBox(height: 16),
         SvgPicture.asset("assets/images/backgroun_materyal.svg"),
+        SizedBox(height: 16),
+        SvgPicture.asset("assets/images/backgroun_materyal.svg"),
         SvgPicture.asset("assets/images/backgroun_materyal.svg"),
       ],
     );
  }
 
- Widget _buildTopBar() {
+ Widget _buildTopBar(BuildContext context) {
     return Container(
       height: 60,
       decoration: BoxDecoration(
@@ -277,7 +282,11 @@ class LevelView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset("assets/icons/arrow_back_icon.svg", width: 28, height: 28,),
+            GestureDetector(onTap: (){
+              context.go('/home');
+            },
+            child: SvgPicture.asset("assets/icons/arrow_back_icon.svg", width: 28, height: 28,)
+            ),
             Text("Level",
               style: TextStyle(
                   fontFamily: 'Outfit',
@@ -296,10 +305,10 @@ class LevelView extends StatelessWidget {
     );
  }
 
- Widget _buildLevelItem(LevelItem item) {
+ Widget _buildLevelItem(LevelItem item, bool isActive) {
     return Column(
       children: [
-        Text("\"${item.levelMeaningfulSentence}\"",
+        Text("${isActive? item.levelMeaningfulSentence : ""}",
           style: TextStyle(
               color: Colors.white,
               fontSize: 14,
@@ -317,13 +326,13 @@ class LevelView extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,          // Yuvarlak şekil
             border: Border.all(
-              color: Color(0xFFF5CD74),            // Çerçeve rengi
+              color: isActive ? Color(0xFFF5CD74) : Colors.white,            // Çerçeve rengi
               width: 4,                      // Çerçeve kalınlığı
             ),
           ),
           child: ClipOval(
             child: Image.asset(
-              "assets/images/${item.activeImage}",
+              "assets/images/${isActive ? item.activeImage : item.deActiveImage}",
               width: 54,
               height: 54,
               fit: BoxFit.cover,
