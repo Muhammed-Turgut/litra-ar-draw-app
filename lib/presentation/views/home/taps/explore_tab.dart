@@ -1,18 +1,28 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
 import 'package:litra_ar_draw_app/domain/entitys/users_post_item.dart';
+import 'package:litra_ar_draw_app/presentation/services/image_picker_services.dart';
+import 'package:litra_ar_draw_app/presentation/view_models/explore_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/explore/vertical_score_bar.dart';
+import 'package:provider/provider.dart';
 
 class ExploreTab extends StatefulWidget {
-  const ExploreTab({super.key});
 
+  final Function function;
+
+  ExploreTab(this.function);
 
   @override
   State<ExploreTab> createState() => _ExploreTabState();
 }
 
 class _ExploreTabState extends State<ExploreTab> {
+  final ImagePickerService _imagePickerService = ImagePickerService();
+
   final List<String> _categoryList = [
     "All",
     "Basic",
@@ -66,46 +76,53 @@ class _ExploreTabState extends State<ExploreTab> {
   }
 
   Widget _buildUploadImageAre(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 138,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: SvgPicture.asset(
-              "assets/images/upload_image_are.svg",
-              fit: BoxFit.contain,
-            ),
-          ),
+    
+   return Consumer<ExploreViewModel>(builder: (context,viewModel,child){
+     return SizedBox(
+         width: double.infinity,
+         height: 138,
+         child: GestureDetector(onTap:() {
+            widget.function();
+         },child: Stack(
+           children: [
+             Positioned.fill(
+               child: SvgPicture.asset(
+                 "assets/images/upload_image_are.svg",
+                 fit: BoxFit.contain,
+               ),
+             ),
 
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset("assets/icons/image_plus_icon.svg"),
-                Text("Upload Image",
-                 style: TextStyle(
-                   color: Colors.white,
-                   fontFamily: 'Outfit',
-                   fontSize: 16,
-                   fontWeight: FontWeight.w500,
-                   height: 1.1
-                 ),
-                ),
-                Text("Add your own drawings",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Outfit',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      height: 1.1
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+             Center(
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   SvgPicture.asset("assets/icons/image_plus_icon.svg"),
+                   Text("Upload Image",
+                     style: TextStyle(
+                         color: Colors.white,
+                         fontFamily: 'Outfit',
+                         fontSize: 16,
+                         fontWeight: FontWeight.w500,
+                         height: 1.1
+                     ),
+                   ),
+                   Text("Add your own drawings",
+                     style: TextStyle(
+                         color: Colors.white,
+                         fontFamily: 'Outfit',
+                         fontSize: 14,
+                         fontWeight: FontWeight.w300,
+                         height: 1.1
+                     ),
+                   )
+                 ],
+               ),
+             )
+           ],
+         ),
+         )
+     );
+    }
     );
   }
   Widget _buildCategory() {
@@ -296,5 +313,23 @@ class _ExploreTabState extends State<ExploreTab> {
            )
          ),
        );
+  }
+
+
+  Future<void> _pickAndShareImage(BuildContext context) async {
+    final viewModel = context.read<ExploreViewModel>();
+
+    UserEntity getUser = await viewModel.getUser();
+
+    final File? image =
+    await _imagePickerService.pickImage();
+
+    if (image == null) return;
+
+    await viewModel.sharePostWithImage(
+      userId: getUser.uid,
+      content: "merhabalar",
+      imageFile: image,
+    );
   }
 }

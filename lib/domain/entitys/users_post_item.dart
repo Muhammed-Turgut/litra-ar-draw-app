@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 
 class UsersPostItem{
-  final int id;
-  final String userName;
-  final String postTitle;
+  final String userId;
+  final String? postTitle;
+  final String imageUrl;
   final String? postContent;
-  final int sparkScore;
-  final String? userProfileImage;
+  final int? sparkScore;
+  final String? createdAt;
+
 
   UsersPostItem({
-    required this.id,
-    required this.userName,
-    required this.postTitle,
+    required this.userId,
+    this.postTitle,
     this.postContent,
-    required this.sparkScore,
-    this.userProfileImage,
+    this.createdAt,
+    required this.imageUrl,
+    this.sparkScore,
     Key? key
   });
 }

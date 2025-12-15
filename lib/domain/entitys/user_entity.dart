@@ -1,16 +1,16 @@
 
 class UserEntity{
-  final String id;
-  final String fullName;
+  final String uid;
+  final String? fullName;
+  final List<String>? postsId;
   final String email;
-  final String password;
-  final String createDate;
+  final String? createdAt;
 
-  UserEntity(this.createDate,
-    {
-    required this.id,
-    required this.fullName,
+  UserEntity({
+    this.createdAt,
+    required this.uid,
+    this.postsId,
+    this.fullName,
     required this.email,
-    required this.password,
   });
 }

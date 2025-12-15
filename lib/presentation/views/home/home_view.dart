@@ -28,7 +28,9 @@ class _HomeViewState extends State<HomeView> {
     final List<Widget> _pages =
     [
       AtelierTab(),
-      ExploreTab(),
+      ExploreTab((){
+        context.go("/home/sharePost");
+      }),
       DetailBottomBar(),
       FavoriteTab(),
       ProfileTab(onTap: (){

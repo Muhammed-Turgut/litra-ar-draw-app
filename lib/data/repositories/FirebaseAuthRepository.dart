@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
 import 'package:litra_ar_draw_app/domain/repositories/auth_repository.dart';
 
 class FirebaseAuthRepository implements AuthRepository {
@@ -22,10 +21,12 @@ class FirebaseAuthRepository implements AuthRepository {
       password: password,
     );
 
+    List<String> posts = [];
     await _firestore.collection("users").doc(userCredential.user!.uid).set({
       "fullName": fullName,
       "email": email,
       "uid": userCredential.user!.uid,
+      "posts": posts,
       "createdAt": DateTime.now(),
     });
 
@@ -82,7 +83,26 @@ class FirebaseAuthRepository implements AuthRepository {
        // accessToken: googleAuth.accessToken, // null olabilir, sorun değil
       );
 
-      return await _auth.signInWithCredential(credential);
+      final userCredential = await _auth.signInWithCredential(credential);
+
+      final user = userCredential.user;
+      if (user == null) {
+        throw FirebaseAuthException(
+          code: 'USER_NULL',
+          message: 'Firebase user null döndü',
+        );
+      }
+      final newUser = UserEntity(
+          uid: user.uid,
+          email: user.email.toString(),
+          createdAt: DateTime.now().toString(),
+          fullName: null,
+          postsId: null,
+          );
+
+      await createUserIfNotExists(newUser);
+
+      return userCredential;
       
     } on GoogleSignInException catch (e) {
       // GoogleSignInException'ı yakala ve FirebaseAuthException'a çevir
@@ -110,6 +130,45 @@ class FirebaseAuthRepository implements AuthRepository {
 
       rethrow;
     }
+  }
+  Future<void> createUserIfNotExists(UserEntity user) async {
+    final userRef = _firestore.collection('users').doc(user.uid);
+
+    final doc = await userRef.get();
+
+    if (!doc.exists) {
+      await userRef.set({
+        'uid': user.uid,
+        'email': user.email,
+        'fullName': user.fullName,
+        'postsId': user.postsId,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+
+  @override
+  Future<UserEntity> getUser() async {
+    final userId = _auth.currentUser!.uid;
+
+    final userDoc = await _firestore
+        .collection('users')
+        .doc(userId)
+        .get();
+
+    if (!userDoc.exists) {
+      throw Exception('Kullanıcı bulunamadı');
+    }
+
+    final data = userDoc.data()!;
+
+    return UserEntity(
+      uid: userId,
+      fullName: data['fullName'] as String,
+      email: data['email'] as String,
+      postsId: data['postsId'] as List<String>,
+      createdAt: data['createdAt'] as String
+    );
   }
 
 }

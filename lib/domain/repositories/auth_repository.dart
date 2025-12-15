@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
 
 abstract class AuthRepository{
 
@@ -16,6 +17,8 @@ abstract class AuthRepository{
   Future<void> resetPassword({required String email});
 
   Future<UserCredential> signInWithGoogle();
+
+  Future<UserEntity> getUser();
 
 
 }

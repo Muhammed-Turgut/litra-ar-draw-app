@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:litra_ar_draw_app/presentation/views/camera/camera_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/choose_draw_type/choose_draw_type.dart';
 import 'package:litra_ar_draw_app/presentation/views/forget_password/forget_password_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/home/home_view.dart';
@@ -8,6 +9,7 @@ import 'package:litra_ar_draw_app/presentation/views/level/level_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/login/login_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/noInternet/no_internet_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/onBoarding/on_boarding_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/share_page/share_page_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/sigin/signin_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/splash/splash_view.dart';
 
@@ -77,6 +79,20 @@ class AppRouter{
           path: '/home/chooseDrawType',
           name: 'home-chooseDrawType',
           builder: (context,state) => ChooseDrawType()
+      ),
+
+      GoRoute(
+        //Home Screen - Ana Sayfa
+          path: '/home/chooseDrawType/cameraView',
+          name: 'home-chooseDrawType-cameraView',
+          builder: (context,state) => CameraView()
+      ),
+
+      GoRoute(
+            //Home Screen - Ana Sayfa
+            path: '/home/sharePost',
+            name: 'home-sharePost',
+            builder: (context,state) => SharePageView()
       ),
 
       //NoInternetView - internet olmaması durumunda gösterilecek ekran.

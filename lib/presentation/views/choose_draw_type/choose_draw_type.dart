@@ -31,7 +31,7 @@ class _ChooseDrawTypeState extends State<ChooseDrawType> {
       child: Column(
         children: [
            Padding(
-             padding: const EdgeInsets.only(top: 16.0),
+             padding: const EdgeInsets.only(top: 4.0),
              child: Row(
                mainAxisAlignment: MainAxisAlignment.start,
                children: [
@@ -79,7 +79,7 @@ class _ChooseDrawTypeState extends State<ChooseDrawType> {
           CustomButton(
             title: "Continue",
             onPressButton: (){
-
+                context.go('/home/chooseDrawType/cameraView');
             },
             foregroundColor: Colors.white,
             backgroundColor: Color(0xFF50C4ED),
