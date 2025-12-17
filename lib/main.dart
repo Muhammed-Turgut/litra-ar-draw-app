@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:litra_ar_draw_app/core/router/app_router.dart';
 import 'package:litra_ar_draw_app/data/repositories/camera_repository.dart';
+import 'package:litra_ar_draw_app/data/repositories/content_repository.dart';
 import 'package:litra_ar_draw_app/domain/usecase/camera_use_case.dart';
+import 'package:litra_ar_draw_app/domain/usecase/get_content_item_use_case.dart';
+import 'package:litra_ar_draw_app/domain/usecase/get_post_use_case.dart';
 import 'package:litra_ar_draw_app/domain/usecase/get_user_use_case.dart';
 import 'package:litra_ar_draw_app/domain/usecase/login_user_use_case.dart';
 import 'package:litra_ar_draw_app/domain/usecase/pick_image_use_case.dart';
 import 'package:litra_ar_draw_app/domain/usecase/share_post_use_case.dart';
 import 'package:litra_ar_draw_app/firebase_options.dart';
+import 'package:litra_ar_draw_app/presentation/view_models/atelier_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/camera_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/explore_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/login_view_model.dart';
@@ -57,6 +61,10 @@ void main() async {
   final postRepository = PostRepository();
   final pickImageUseCase = PickImageUseCase(postRepository: postRepository);
   final sharePostUseCase = SharePostUseCase(postRepository: postRepository);
+  final getPostUseCase = GetPostUseCase(postRepository: postRepository);
+
+  final contentRepository = ContentRepository();
+  final getContentItemUseCase = GetContentItemUseCase(contentRepository: contentRepository);
 
 
   runApp(
@@ -66,12 +74,14 @@ void main() async {
         ChangeNotifierProvider(create: (_) => SigInViewModel(registerUserUseCase: registerUserUseCase)),
         ChangeNotifierProvider(create: (_) => LoginViewModel(loginUserUseCase: loginUserUseCase)),
         ChangeNotifierProvider(create: (_) => CameraViewModel(cameraUseCase: cameraUseCase)),
-       ChangeNotifierProvider(create: (_) => ExploreViewModel(
+        ChangeNotifierProvider(create: (_) => ExploreViewModel(
            requestCameraPermissionUseCase: requestCameraPermissionUseCase,
            getUserUseCase: getUserUseCase,
            pickImageUseCase: pickImageUseCase,
-           sharePostUseCase: sharePostUseCase)
-       )
+           sharePostUseCase: sharePostUseCase,
+           getPostUseCase: getPostUseCase
+       )),
+       ChangeNotifierProvider(create: (_) => AtelierViewModel(getContentItemUseCase: getContentItemUseCase)),
      ],
      child:MyApp()
    ));

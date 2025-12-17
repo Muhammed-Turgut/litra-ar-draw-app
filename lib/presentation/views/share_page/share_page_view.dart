@@ -1,10 +1,8 @@
 import 'dart:io' show File;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
 import 'package:litra_ar_draw_app/presentation/services/image_picker_services.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/explore_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/login/continue_button.dart';
@@ -12,6 +10,7 @@ import 'package:litra_ar_draw_app/presentation/widgets/login/custom_input_field.
 import 'package:provider/provider.dart' show ReadContext, Consumer;
 
 class SharePageView extends StatefulWidget {
+
   @override
   State<SharePageView> createState() => _SharePageViewState();
 }
@@ -36,7 +35,9 @@ class _SharePageViewState extends State<SharePageView> {
       body: SafeArea(
           top: false,
           bottom: false,
-          child: _buildBody(context)),
+          child: SingleChildScrollView(
+            child:_buildBody(context) ,
+          )),
     );
   }
 
@@ -85,9 +86,7 @@ class _SharePageViewState extends State<SharePageView> {
             onTap: () => _pickAndShareImage(context),
             child: Container(
               width: double.infinity,
-              height: 200,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.grey[400]!, width: 2),
               ),
@@ -102,12 +101,7 @@ class _SharePageViewState extends State<SharePageView> {
                   : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add_photo_alternate, size: 50, color: Colors.grey[600]),
-                  SizedBox(height: 8),
-                  Text(
-                    "Tap to select image",
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
+                  SvgPicture.asset("assets/images/upload_image_area.svg",fit: BoxFit.fill,),
                 ],
               ),
             ),
@@ -164,6 +158,8 @@ class _SharePageViewState extends State<SharePageView> {
                     content: _contentEditingController.text,
                     imageFile: file!,
                   );
+
+                  context.go('/home');
                 },
                 widthButton: double.infinity,
               )

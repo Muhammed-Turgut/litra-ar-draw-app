@@ -7,18 +7,10 @@ import 'package:litra_ar_draw_app/presentation/widgets/home/draw_row_item.dart';
 
 class AtelierTab extends StatelessWidget {
 
-  final List<DrawRowItem> _list = [
-    DrawRowItem(image: "example_v.png", state: true, onTabItem: (){}),
-    DrawRowItem(image: "example_vv.png", state: false, onTabItem: (){}),
-    DrawRowItem(image: "example_vvv.png", state: true, onTabItem: (){}),
-    DrawRowItem(image: "example_vvvv.png", state: false, onTabItem: (){}),
-
-  ];
 
   //Firebasde Storage de veri çekerken kullanılacak.
  // final String BASE_URL = "https://firebasestorage.googleapis.com/v0/b/litra-ar-draw.firebasestorage.app/o/animal_color_duck.png?alt=media&token=";
 
-  AtelierTab({super.key});
 
 
   @override
@@ -99,20 +91,60 @@ class AtelierTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            DrawCategoryItem(title: "Basic",onTapItem: (){
-              context.go('/home/chooseDrawType');
-            },onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Basic",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                         extra: item
+              );},onTapMore: (){},category: "basic"),
 
-            DrawCategoryItem(title: "Animals",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Nature",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Vehicles",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Countrys",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "People",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Buildings",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Fashion",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Anime",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Cartoons",onTapItem: (){},onTapMore: (){},list: _list),
-            DrawCategoryItem(title: "Fantasy",onTapItem: (){},onTapMore: (){},list: _list),
+            DrawCategoryItem(title: "Animals",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "animal"),
+
+            DrawCategoryItem(title: "Nature",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "nature"),
+
+            DrawCategoryItem(title: "Vehicles",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "vehicles"),
+
+            DrawCategoryItem(title: "Country",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "country"),
+
+            DrawCategoryItem(title: "People",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "people"),
+
+            DrawCategoryItem(title: "Buildings",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "buildings"),
+
+            DrawCategoryItem(title: "Fashion",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "fashion"),
+
+            DrawCategoryItem(title: "Anime",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "anime"),
+
+            DrawCategoryItem(title: "Cartoons",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "cartoons"),
+
+            DrawCategoryItem(title: "Fantasy",onTapItem: (item){
+              context.go('/home/chooseDrawType',
+                  extra: item
+              );},onTapMore: (){},category: "fantasy"),
 
           ],
         ),

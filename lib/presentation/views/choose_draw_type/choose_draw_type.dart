@@ -2,9 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/common/custom_button.dart';
 
 class ChooseDrawType extends StatefulWidget {
+
+  final CategoryEntity categoryEntity;
+
+  ChooseDrawType({required this.categoryEntity});
 
   @override
   State<ChooseDrawType> createState() => _ChooseDrawTypeState();
@@ -79,7 +84,8 @@ class _ChooseDrawTypeState extends State<ChooseDrawType> {
           CustomButton(
             title: "Continue",
             onPressButton: (){
-                context.go('/home/chooseDrawType/cameraView');
+                context.go('/home/chooseDrawType/cameraView',
+                 extra: widget.categoryEntity);
             },
             foregroundColor: Colors.white,
             backgroundColor: Color(0xFF50C4ED),

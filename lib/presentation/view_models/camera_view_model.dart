@@ -9,6 +9,7 @@ import '../enums/camera_permission_status.dart';
 class CameraViewModel extends ChangeNotifier{
 
   final CameraUseCase cameraUseCase;
+
   CameraViewModel({required this.cameraUseCase});
   bool _navigationHandled = false;
 

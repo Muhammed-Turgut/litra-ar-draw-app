@@ -8,6 +8,7 @@ import 'package:litra_ar_draw_app/domain/repositories/use_post_repository.dart';
 import 'package:litra_ar_draw_app/presentation/enums/gallery_permission_status.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostRepository implements UsePostRepository{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -15,6 +16,7 @@ class PostRepository implements UsePostRepository{
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   final ImagePicker _picker = ImagePicker();
+  final List<UsersPostItem> postList = [];
 
   @override
   Future<File?> pickImage({ImageSource source = ImageSource.gallery}) async {
@@ -110,14 +112,10 @@ class PostRepository implements UsePostRepository{
     required String content,
     required File imageFile}) async
   {
-
     //Hepsini birleştiren fonskiyon.
 
     try{
-      print(('Resim yükelniyor...'));
-
       final user = _auth.currentUser;
-
       if(user == null){
         throw Exception('Kullanıcı giriş yapmamış');
       }
@@ -125,23 +123,18 @@ class PostRepository implements UsePostRepository{
       String? imageUrl = await uploadImage(imageFile: imageFile, userId:user.uid);
 
       if(imageUrl == null){
-        print('Resim yüklenemedi');
         return null;
       }
 
-      print('Post Oluşturuluyor');
 
       String? postId = await createPost(userPostItem:
       UsersPostItem(
           userId: user.uid,
           postTitle: title,
           imageUrl: imageUrl,
-          sparkScore: null)
+          postContent: content,
+          sparkScore: 0)
       );
-
-      if(postId != null){
-        print('Post başarıyla paylaşıldı! ID: $postId');
-      }
 
       return postId;
 
@@ -149,7 +142,6 @@ class PostRepository implements UsePostRepository{
       print("Hata: $e");
       return null;
     }
-
   }
 
   @override
@@ -210,5 +202,36 @@ class PostRepository implements UsePostRepository{
       return GalleryPermissionStatus.denied;
     }
   }
+
+  @override
+  Future<List<UsersPostItem>> getPostList() async{
+
+     final querySnapshot = await _firestore
+         .collection('posts')
+         .orderBy('createdAt',descending: true)
+         .limit(10)
+         .get();
+
+     final newPosts = querySnapshot.docs.map((doc){
+
+       final data = doc.data() as Map<String,dynamic>;
+       final timestamp = data['createdAt'] as Timestamp;
+
+       return UsersPostItem(
+         userId: data['userId']?.toString() ?? '',
+         imageUrl: data['imageUrl']?.toString() ?? '',
+         postTitle: data['title']?.toString(),
+         postContent: data['content']?.toString(),
+         createdAt: timestamp.toDate().toIso8601String(),
+         sparkScore: int.tryParse(data['spark']?.toString() ?? '0'),
+       );
+     }).toList();
+
+     postList.addAll(newPosts);
+
+     return postList;
+  }
+
+
 
 }

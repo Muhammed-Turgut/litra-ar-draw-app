@@ -37,13 +37,12 @@ class _ExploreTabState extends State<ExploreTab> {
     "Fantasy"
   ];
 
- final List<String> _postList = [
-      "",
-   "",
-   ""
- ];
-
   int _selected = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +69,7 @@ class _ExploreTabState extends State<ExploreTab> {
         SizedBox(height: 12),
         _buildCategory(),
         SizedBox(height: 12),
-        _buildPostsList(),
+        _buildPostsList(context),
       ],
     );
   }
@@ -144,6 +143,7 @@ class _ExploreTabState extends State<ExploreTab> {
       ),
     );
   }
+
   Widget _buildCategoryItem(String categoryName, bool selection, int index) {
     return GestureDetector(
       onTap: (){
@@ -177,111 +177,120 @@ class _ExploreTabState extends State<ExploreTab> {
 
   }
 
-  Widget _buildPostsList() {
-    return Container(
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (context,index){
-           return _buildPostItem();
-        },itemCount: _postList.length,
-      ),
+  Widget _buildPostsList(BuildContext context) {
+    return Consumer<ExploreViewModel>(
+      builder: (context, viewModel, child) {
+        if (viewModel.isLoading && viewModel.postList.isEmpty) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        debugPrint("post list lenght: ${viewModel.postList.length}");
+
+
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: viewModel.postList.length,
+          itemBuilder: (context, index) {
+            return _buildPostItem(viewModel.postList[index], viewModel);
+          },
+        );
+      },
     );
   }
 
-  Widget _buildPostItem() {
-       return Padding(
-         padding: const EdgeInsets.only(bottom: 12.0),
-         child: AspectRatio(
-           //AspectRatio, içindeki widget’ın genişlik / yükseklik oranını korumaya zorlayan bir layout widget’tır.
-             aspectRatio: 1,
-             child:Container(
-           decoration: BoxDecoration(
-             color: Colors.white,
-             borderRadius: BorderRadius.all(Radius.circular(12)),
-             border: Border.all(color: Color(0xFFF5F5F5),width: 2)
-           ),
-           child: Padding(
-             padding: const EdgeInsets.all(8.0),
-             child: Column(
-               children: [
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Row(
-                         children: [
-                           SvgPicture.asset("assets/icons/default_user_profile_image.svg",width: 36, height: 36,),
-                           SizedBox(width: 4,),
-                           Text("Muhammed Turgut",
-                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Outfit',
-                              fontWeight: FontWeight.w400
-                            )
-                           )
-                         ],
-                       ),
-                       SvgPicture.asset("assets/icons/selected_star_icon.svg",width: 24, height: 24,)
-                     ],
-                   ),
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                   children: [
-                     VerticalScoreBar(value: 200, width: 12,height: 180,),
-                     Image.asset("assets/images/example_post_v.png", width: 200, height: 200,),
-                     Stack(
-                       clipBehavior: Clip.none,
-                       alignment: Alignment.bottomCenter,
-                       children: [
-                         // Arka plan bar
-                         Container(
-                           width: 10,
-                           height: 8,
-                           decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(12),
-                               color: Colors.white
-                           ),
-                         ),
-                         ]
-                     )
-                   ],
-                 ),
-                 
-                 Expanded(
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Text("Lorem ipsum dolor sit amet ",
-                        style: TextStyle(
-                          color:  Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Outfit',
-                          fontWeight: FontWeight.w500
+  Widget _buildPostItem(UsersPostItem item, ExploreViewModel viewModel) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: IntrinsicHeight(
+        // AspectRatio yerine IntrinsicHeight kullandım, içerik uzunsa widget genişler
+        child: Container(
+          constraints: BoxConstraints(
+            minHeight: 280, // Minimum yükseklik
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+            border: Border.all(color: Color(0xFFF5F5F5), width: 2),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // İçeriğe göre boyutlanır
+              children: [
+                // Yıldız ikonu
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/icons/selected_star_icon.svg",
+                      width: 24,
+                      height: 24,
+                    )
+                  ],
+                ),
+
+                // Spark bar, resim ve boş alan
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    VerticalScoreBar(
+                      value: (item.sparkScore ?? 0.0).toDouble(),
+                      width: 12,
+                      height: 180,
+                    ),
+                    Image.network(
+                      item.imageUrl,
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.contain,
+                    ),
+                    Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Container(
+                          width: 10,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.white,
+                          ),
                         ),
-                       ),
+                      ],
+                    )
+                  ],
+                ),
 
-                      ElevatedButton(onPressed: (){
+                SizedBox(height: 8), // Biraz boşluk
 
-                      },
-
-                       child: Row(
-                         children: [
-                           SvgPicture.asset("assets/icons/spark_icon.svg"),
-                           SizedBox(width: 4,),
-                           Text("Spark",
-                            style: TextStyle(
-                               color: Color(0xFF50C4ED),
-                               fontSize: 14,
-                               height: 0.5,
-                               fontFamily: 'Outfit',
-                               fontWeight: FontWeight.w500
-                            ),
-                           )
-                         ],
-                       ),
+                // Başlık ve Spark butonu
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          item.postTitle ?? "",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines: 2, // Başlık çok uzunsa 2 satıra çıkar
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      ElevatedButton(
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 8, vertical:4),
+                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.white,
                           elevation: 0,
@@ -292,44 +301,60 @@ class _ExploreTabState extends State<ExploreTab> {
                               width: 1,
                             ),
                           ),
-                        )
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset("assets/icons/spark_icon.svg"),
+                            SizedBox(width: 4),
+                            Text(
+                              "Spark",
+                              style: TextStyle(
+                                color: Color(0xFF50C4ED),
+                                fontSize: 14,
+                                height: 0.5,
+                                fontFamily: 'Outfit',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          ],
+                        ),
                       )
-                     ],
-                   ),
-                 ),
-                 Text("Lorem ipsum dolor sit amet consectetur. Adipiscing ante viverra faucibus posuere ut. Mauris pellentesque turpis accumsan in quam convallis.",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Outfit',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300
+                    ],
                   ),
-                     maxLines: 3,
-                     overflow: TextOverflow.ellipsis
-                 )
-               ],
-             ),
-           ),
-           )
-         ),
-       );
-  }
+                ),
 
+                SizedBox(height: 8), // Biraz boşluk
 
-  Future<void> _pickAndShareImage(BuildContext context) async {
-    final viewModel = context.read<ExploreViewModel>();
+                // Açıklama - Flexible ile uyumlu hale getirildi
+                Flexible(
+                  fit: FlexFit.loose, // İçeriğe göre boyutlanır ama gereksiz yer kaplamaz
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Text(
+                        item.postContent ?? "",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Outfit',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                        ),
+                        maxLines: 4, // 3'ten 4'e çıkardım, biraz daha fazla gösterir
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ),
 
-    UserEntity getUser = await viewModel.getUser();
-
-    final File? image =
-    await _imagePickerService.pickImage();
-
-    if (image == null) return;
-
-    await viewModel.sharePostWithImage(
-      userId: getUser.uid,
-      content: "merhabalar",
-      imageFile: image,
+                SizedBox(height: 4), // Alt boşluk
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
+
 }

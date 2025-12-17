@@ -3,24 +3,25 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
+import 'package:litra_ar_draw_app/presentation/widgets/common/shimmer_box.dart';
 
 class DrawRowItem extends StatelessWidget {
-  final String image;
-  final bool state;
+
   final VoidCallback onTabItem;
-  final int? index;
+  final CategoryEntity item;
 
   const DrawRowItem({
-    super.key,
-    required this.image,
-    required this.state,
     required this.onTabItem,
-    this.index
+    required this.item
   });
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
+
+    return GestureDetector(onTap: (){
+        onTabItem();
+    },child: AspectRatio(
       //AspectRatio, içindeki widget’ın genişlik / yükseklik oranını korumaya zorlayan bir layout widget’tır.
       aspectRatio: 1,
       child: Container(
@@ -34,9 +35,23 @@ class DrawRowItem extends StatelessWidget {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                    "assets/images/$image",
-                    fit: BoxFit.contain
+                child: Image.network(
+                  item.imageUrl,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+
+                    return const ShimmerBox(
+                      width: 100,
+                      height: 120,
+                    );
+                  },
+                  errorBuilder: (_, __, ___) {
+                    return const ShimmerBox(
+                      width: 100,
+                      height: 120,
+                    );
+                  },
                 ),
               ),
             ),
@@ -44,7 +59,7 @@ class DrawRowItem extends StatelessWidget {
               top: 8,
               right: 8,
               child: SvgPicture.asset(
-                "assets/icons/${state ? "selected_star_icon.svg" : "default_star_icon.svg"}",
+                "assets/icons/default_star_icon.svg",
                 width: 18,
                 height: 18,
               ),
@@ -52,7 +67,7 @@ class DrawRowItem extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
 
   }
 }

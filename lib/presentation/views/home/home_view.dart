@@ -33,9 +33,12 @@ class _HomeViewState extends State<HomeView> {
       }),
       DetailBottomBar(),
       FavoriteTab(),
-      ProfileTab(onTap: (){
+      ProfileTab(goLevel: (){
         context.go('/home/levelView');
       },
+        goSharePost: (){
+        context.go('/home/sharePost');
+        },
       )
     ];
 
@@ -48,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
           currentIndex: _selectedIndex,
           onTap: (index) {
             if (index == 2) {
-              _openDetailPanel(); // panel aç
+              _openDetailPanel(context); // panel aç
               return;
             }
 
@@ -63,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
         )
     );
   }
-  void _openDetailPanel() {
+  void _openDetailPanel(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,     // ekranın 90%’ına kadar açılabilsin
@@ -125,7 +128,7 @@ class _HomeViewState extends State<HomeView> {
                           }),
 
                           _buildItem("Share","share_arrow_icon.svg",Color(0xFFE946EA),(){
-
+                              context.go('/home/sharePost');
                           }),
 
                           _buildItem("Instagram","instagram_icon.svg",Color(0xFFEB4335),(){
@@ -159,27 +162,32 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildItem(String itemName,String itemIcon, Color color, Function onPress,) {
-    return Column(
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.all(Radius.circular(16))
+    return GestureDetector(
+      onTap: (){
+       onPress();
+      },
+      child: Column(
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.all(Radius.circular(16))
+            ),
+            child: Center(
+              child: SvgPicture.asset("assets/icons/$itemIcon"),
+            ),
           ),
-          child: Center(
-            child: SvgPicture.asset("assets/icons/$itemIcon"),
-          ),
-        ),
-        Text(itemName,
-          style: TextStyle(
-              color: Colors.black,
-              fontSize:12,
-              fontFamily: 'Outfit'
-          ),
-        )
-      ],
+          Text(itemName,
+            style: TextStyle(
+                color: Colors.black,
+                fontSize:12,
+                fontFamily: 'Outfit'
+            ),
+          )
+        ],
+      ),
     );
   }
 

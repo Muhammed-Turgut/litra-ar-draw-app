@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
 import 'package:litra_ar_draw_app/presentation/views/camera/camera_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/choose_draw_type/choose_draw_type.dart';
 import 'package:litra_ar_draw_app/presentation/views/forget_password/forget_password_view.dart';
@@ -78,14 +79,20 @@ class AppRouter{
         //Home Screen - Ana Sayfa
           path: '/home/chooseDrawType',
           name: 'home-chooseDrawType',
-          builder: (context,state) => ChooseDrawType()
+          builder: (context,state){
+              final item = state.extra as CategoryEntity;
+              return ChooseDrawType(categoryEntity: item);
+          }
       ),
 
       GoRoute(
         //Home Screen - Ana Sayfa
           path: '/home/chooseDrawType/cameraView',
           name: 'home-chooseDrawType-cameraView',
-          builder: (context,state) => CameraView()
+          builder: (context,state){
+              final item = state.extra as CategoryEntity;
+              return CameraView(categoryEntity: item);
+         }
       ),
 
       GoRoute(

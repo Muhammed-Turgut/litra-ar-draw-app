@@ -1,25 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
+import 'package:litra_ar_draw_app/presentation/view_models/atelier_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/home/draw_row_item.dart';
+import 'package:provider/provider.dart';
 
-class DrawCategoryItem extends StatelessWidget {
+class DrawCategoryItem extends StatefulWidget {
   final String title;
-  final List<DrawRowItem> list;
+  final String category;
   final VoidCallback onTapMore;
-  final VoidCallback onTapItem;
+  final Function(CategoryEntity item) onTapItem;
 
   const DrawCategoryItem({
     super.key,
     required this.title,
-    required this.list,
+    required this.category,
     required this.onTapMore,
     required this.onTapItem,
   });
 
   @override
+  State<DrawCategoryItem> createState() => _DrawCategoryItemState();
+}
+
+class _DrawCategoryItemState extends State<DrawCategoryItem> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context
+          .read<AtelierViewModel>()
+          .getCategoryItem(widget.category);
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(onTap: (){
-      onTapItem();
+
     },
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +47,7 @@ class DrawCategoryItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              widget.title,
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Outfit',
@@ -50,23 +69,39 @@ class DrawCategoryItem extends StatelessWidget {
 
         const SizedBox(height: 8),
 
-        SizedBox(
-          height: 120, // <-- YATAY LİSTE YÜKSEKLİĞİ
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 12),  // elemanlar arası boşluk
-                child: list[index],
-              );// DrawRowItem
-            },
-          ),
+        Consumer<AtelierViewModel>(
+          builder: (context, viewModel, child) {
+            final list = viewModel.getCategoryList(widget.category);
+
+            return SizedBox(
+              height: 120,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: DrawRowItem(
+                      onTabItem: (){
+                        final item = list[index];
+                        widget.onTapItem(item);
+                      },
+                      item: list[index],
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         ),
+
+
 
         const SizedBox(height: 16),
       ],
       )
     );
   }
+
+
 }

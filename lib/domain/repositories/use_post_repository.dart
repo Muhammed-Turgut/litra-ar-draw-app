@@ -27,4 +27,6 @@ abstract class UsePostRepository {
   Future<void> deletePost(String postId, String userId) async{}
 
   Future<GalleryPermissionStatus> requestGalleryPermission();
+
+  Future<List<UsersPostItem>> getPostList();
 }
