@@ -59,7 +59,7 @@ class AtelierTab extends StatelessWidget {
                  ),
                ),
 
-               Text("Sanat Parmak Uçlarında",
+               Text("Art at your fingertips",
                  style: TextStyle(
                      fontSize: 16,
                      height: 1.1,
@@ -91,10 +91,10 @@ class AtelierTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            DrawCategoryItem(title: "Basic",onTapItem: (item){
+            /*DrawCategoryItem(title: "Basic",onTapItem: (item){
               context.go('/home/chooseDrawType',
                          extra: item
-              );},onTapMore: (){},category: "basic"),
+              );},onTapMore: (){},category:"basic"),*/
 
             DrawCategoryItem(title: "Animals",onTapItem: (item){
               context.go('/home/chooseDrawType',
@@ -111,25 +111,21 @@ class AtelierTab extends StatelessWidget {
                   extra: item
               );},onTapMore: (){},category: "vehicles"),
 
-            DrawCategoryItem(title: "Country",onTapItem: (item){
-              context.go('/home/chooseDrawType',
-                  extra: item
-              );},onTapMore: (){},category: "country"),
 
-            DrawCategoryItem(title: "People",onTapItem: (item){
+           /* DrawCategoryItem(title: "People",onTapItem: (item){
               context.go('/home/chooseDrawType',
                   extra: item
-              );},onTapMore: (){},category: "people"),
+              );},onTapMore: (){},category: "people"),*/
 
-            DrawCategoryItem(title: "Buildings",onTapItem: (item){
+          /*  DrawCategoryItem(title: "Buildings",onTapItem: (item){
               context.go('/home/chooseDrawType',
                   extra: item
-              );},onTapMore: (){},category: "buildings"),
+              );},onTapMore: (){},category: "buildings"),*/
 
-            DrawCategoryItem(title: "Fashion",onTapItem: (item){
+           /* DrawCategoryItem(title: "Fashion",onTapItem: (item){
               context.go('/home/chooseDrawType',
                   extra: item
-              );},onTapMore: (){},category: "fashion"),
+              );},onTapMore: (){},category: "fashion"),*/
 
             DrawCategoryItem(title: "Anime",onTapItem: (item){
               context.go('/home/chooseDrawType',

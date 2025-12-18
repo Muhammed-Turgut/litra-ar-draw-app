@@ -31,7 +31,9 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
       body: SafeArea(
         bottom: true,
         top: true,
-        child: _buildBody(context)
+        child: SingleChildScrollView(
+          child:_buildBody(context),
+        )
       ),
     );
   }

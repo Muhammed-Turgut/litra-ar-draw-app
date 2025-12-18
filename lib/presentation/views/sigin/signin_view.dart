@@ -210,7 +210,7 @@ class SignInView extends StatelessWidget {
                     },
                     widthButton: 380,
                   ),
-                  SizedBox(height: 12),
+                 /* SizedBox(height: 12),
                   ContinueButton(
                     title: "Continue as guest",
                     foregroundColor: Color(0xFFC8C8C8),
@@ -220,7 +220,7 @@ class SignInView extends StatelessWidget {
                     },
                     widthButton: 380,
                     borderWidth: 1,
-                  ),
+                  ),*/
                   SizedBox(height: 24,),
                   Text(
                       "Or continue with",

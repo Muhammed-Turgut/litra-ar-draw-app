@@ -16,20 +16,20 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   final List<OnBoardingItem> _onBoardingPageItem = [
     OnBoardingItem(
       image: "assets/images/on_boarding_start_image.png",
-      title: "Gerçek Dünyada Çizmeye\nBaşla",
-      explanation: "Telefon kameranı kullanarak çizimlerini\ngerçek mekâna taşı.",
+      title: "Start Drawing in the \nReal World",
+      explanation: "Use your phone camera to bring your drawings\nto life in a real space.",
       pageNumber: 1
     ),
     OnBoardingItem(
         image: "assets/images/on_boarding_midel_image.png",
-        title: "Kılavuz Çizgilerle Daha\nDoğru Çiz",
-        explanation: "Uygulama, adım adım çizmen için sana rehber çizgiler sunar.",
+        title: "Draw More Accurately with\nGuide Lines",
+        explanation: "The app provides guide lines to help you draw step by step.",
         pageNumber: 2
     ),
     OnBoardingItem(
         image: "assets/images/on_boarding_finish_image.png",
-        title: "Kaydet, Paylaş ve İlham Ver",
-        explanation: "Yaptığın AR çizimleri kaydedebilir ve\narkadaşlarınla hemen paylaşabilirsin.",
+        title: "Save, Share and Inspire",
+        explanation: "You can save your AR drawings and share\nthem with your friends immediately.",
         pageNumber: 3
     ),
   ];
@@ -154,7 +154,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               SizedBox(height: 24),
               if( _selectedPage == 0)
                 CustomButton(
-                  title: "Devam et",
+                  title: "continue",
                   onPressButton: (){
                     setState(() {
                       _selectedPage = _selectedPage +1;
@@ -169,7 +169,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                      CustomButton(
-                        title: "önceki",
+                        title: "former",
                         onPressButton: (){
                           setState(() {
                             _selectedPage = _selectedPage - 1; // <-- İŞLEV EKLENDİ
@@ -184,7 +184,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     SizedBox(width: 10),
                      Expanded(
                        child: CustomButton(
-                            title: _selectedPage == 2 ? "Başla" : "Devam et",
+                            title: _selectedPage == 2 ? "Start" : "continue",
                             onPressButton: (){
                               // Burada son sayfadan sonra ne yapılacağına karar verilebilir (örneğin ana sayfaya yönlendirme)
                               // Şimdilik sadece sayfa artırma işlevi ekleniyor.

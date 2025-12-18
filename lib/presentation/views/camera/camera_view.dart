@@ -21,7 +21,7 @@ class _CameraViewState extends State<CameraView> {
   double scale = 1.0;
   double previousScale = 1.0;
   int selectedItem = 1;
-  double currentOpacity = 1.0;
+  double currentOpacity = 1.0; // Başlangıç değeri 1.0 (tam görünür)
 
   @override
   void initState() {
@@ -32,17 +32,14 @@ class _CameraViewState extends State<CameraView> {
     vm.addListener(_onViewModelChanged);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //Kamerayı başlatıyoruz.
       vm.initCamera();
     });
   }
 
   void _onViewModelChanged() {
-    //viewModel tarafını izinler için dinliyoruz burda.
     final vm = context.read<CameraViewModel>();
 
-    if (vm.permissionStatus ==
-        CameraPermissionStatus.denied) {
+    if (vm.permissionStatus == CameraPermissionStatus.denied) {
       context.go('/home/chooseDrawType');
       vm.resetPermissionStatus();
     }
@@ -50,8 +47,7 @@ class _CameraViewState extends State<CameraView> {
 
   @override
   void dispose() {
-    context.read<CameraViewModel>()
-        .removeListener(_onViewModelChanged);
+    context.read<CameraViewModel>().removeListener(_onViewModelChanged);
     super.dispose();
   }
 
@@ -68,7 +64,7 @@ class _CameraViewState extends State<CameraView> {
         children: [
           _buildCamera(),
 
-          // Resim ile etkileşim katmanı - TAM EKRAN
+          // Resim ile etkileşim katmanı
           Positioned.fill(
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
@@ -77,24 +73,21 @@ class _CameraViewState extends State<CameraView> {
               },
               onScaleUpdate: (details) {
                 setState(() {
-                  // Hareket (drag)
                   position += details.focalPointDelta;
-
-                  // Ölçeklendirme (scale) - ARTIRILMIŞ LİMİT
                   scale = previousScale * details.scale;
-                  scale = scale.clamp(0.3, 15.0); // 0.3'ten 15'e kadar büyütebilir
+                  scale = scale.clamp(0.3, 15.0);
                 });
               },
               onScaleEnd: (_) {},
             ),
           ),
 
-          // Resim - artık GestureDetector yok, üstteki tek GestureDetector kontrol ediyor
+          // Resim - ŞEFFAFLıK UYGULANACAK YER
           Positioned(
             left: position.dx,
             top: position.dy,
             child: Opacity(
-              opacity: currentOpacity, // Şeffaflık uygulanıyor
+              opacity: currentOpacity, // BU DEĞİŞKEN SLIDER İLE DEĞİŞİYOR
               child: Transform.scale(
                 scale: scale,
                 child: SizedBox(
@@ -109,7 +102,7 @@ class _CameraViewState extends State<CameraView> {
             ),
           ),
 
-          // UI Kontrolleri - en üstte, dokunuşları engellemez
+          // UI Kontrolleri
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -120,10 +113,11 @@ class _CameraViewState extends State<CameraView> {
                   children: [
                     Row(
                       children: [
-                        GestureDetector(onTap: (){
-                          context.go('/home');
-                        },
-                          child:  SvgPicture.asset(
+                        GestureDetector(
+                          onTap: () {
+                            context.go('/home');
+                          },
+                          child: SvgPicture.asset(
                             "assets/icons/arrow_back_icon.svg",
                             width: 32,
                             height: 32,
@@ -145,32 +139,34 @@ class _CameraViewState extends State<CameraView> {
                   ],
                 ),
               ),
-
               Padding(
-                  padding: EdgeInsets.only(left: 16,bottom: 16),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                          onTap: (){
-                            _openDetailPanel(
-                                initialOpacity: currentOpacity,
-                                onOpacityChanged: (value) {
-                                  setState(() {
-                                    currentOpacity = value;
-                                  });
-                                },
-                                onItemSelected: (val){
-                                  setState(() {
-                                    selectedItem = val;
-                                  });
-                                }
-                            );
+                padding: EdgeInsets.only(left: 16, bottom: 16),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        _openDetailPanel(
+                          initialOpacity: currentOpacity,
+                          onOpacityChanged: (value) {
+                            setState(() {
+                              currentOpacity = value; // BURASI ÖNEMLİ!
+                            });
                           },
-                          child: SvgPicture.asset("assets/icons/open_menu_icons.svg",
-                            width:42, height: 42,)
-                      )
-                    ],
-                  )
+                          onItemSelected: (val) {
+                            setState(() {
+                              selectedItem = val;
+                            });
+                          },
+                        );
+                      },
+                      child: SvgPicture.asset(
+                        "assets/icons/open_menu_icons.svg",
+                        width: 42,
+                        height: 42,
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
@@ -183,9 +179,7 @@ class _CameraViewState extends State<CameraView> {
     return SizedBox.expand(
       child: Consumer<CameraViewModel>(
         builder: (context, viewModel, child) {
-          if (viewModel.controller == null ||
-              !viewModel.isInitialized) {
-
+          if (viewModel.controller == null || !viewModel.isInitialized) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -197,26 +191,33 @@ class _CameraViewState extends State<CameraView> {
   }
 
   Widget _buildItem(Function function, String icon, String title, bool isActive) {
-    return GestureDetector(onTap: (){
-      function();
-    },
+    return GestureDetector(
+      onTap: () {
+        function();
+      },
       child: Column(
         children: [
-          SvgPicture.asset("assets/icons/$icon",width: 32, height: 32,
-              colorFilter: ColorFilter.mode(
-                isActive ? Color(0xFF50C4ED) : Color(0xFFD0D0D0) ,
-                BlendMode.srcIn,
-              )),
-          Text(title,
+          SvgPicture.asset(
+            "assets/icons/$icon",
+            width: 32,
+            height: 32,
+            colorFilter: ColorFilter.mode(
+              isActive ? Color(0xFF50C4ED) : Color(0xFFD0D0D0),
+              BlendMode.srcIn,
+            ),
+          ),
+          Text(
+            title,
             style: TextStyle(
-                fontSize: 14,
-                color: isActive ? Color(0xFF50C4ED) : Color(0xFFD0D0D0),
-                fontFamily: 'Outfit',
-                fontWeight: FontWeight.w500
+              fontSize: 14,
+              color: isActive ? Color(0xFF50C4ED) : Color(0xFFD0D0D0),
+              fontFamily: 'Outfit',
+              fontWeight: FontWeight.w500,
             ),
           )
         ],
-      ),);
+      ),
+    );
   }
 
   void _openDetailPanel({
@@ -250,19 +251,39 @@ class _CameraViewState extends State<CameraView> {
                     controller: controller,
                     padding: const EdgeInsets.all(16),
                     children: [
-                      Slider(
-                        value: opacity,
-                        min: 0,
-                        max: 1,
-                        divisions: 100,
-                        label: "${(opacity * 100).round()}%",
-                        onChanged: (value) {
-                          setModalState(() {
-                            opacity = value;
-                          });
-                          onOpacityChanged(value);
-                        },
-                      ),
+                      // SLIDER - Sadece şeffaflık seçiliyse göster
+                      if (localSelectedItem == 1)
+                        Column(
+                          children: [
+                            Text(
+                              "Şeffaflık: ${(opacity * 100).round()}%",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Outfit',
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF50C4ED),
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Slider(
+                              value: opacity,
+                              min: 0.0,
+                              max: 1.0,
+                              divisions: 100,
+                              activeColor: Color(0xFF50C4ED),
+                              inactiveColor: Color(0xFFD0D0D0),
+                              onChanged: (value) {
+                                setModalState(() {
+                                  opacity = value;
+                                });
+                                onOpacityChanged(value); // ANA EKRANI GÜNCELLE
+                              },
+                            ),
+                            SizedBox(height: 16),
+                          ],
+                        ),
+
+                      // BUTONLAR
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: Row(
@@ -274,28 +295,24 @@ class _CameraViewState extends State<CameraView> {
                               });
                               onItemSelected(1);
                             }, "opacity_icon.svg", "şeffaflık", localSelectedItem == 1),
-
                             _buildItem(() {
                               setModalState(() {
                                 localSelectedItem = 2;
                               });
                               onItemSelected(2);
                             }, "lock_icon.svg", "lock", localSelectedItem == 2),
-
                             _buildItem(() {
                               setModalState(() {
                                 localSelectedItem = 3;
                               });
                               onItemSelected(3);
                             }, "opacity_icon.svg", "video", localSelectedItem == 3),
-
                             _buildItem(() {
                               setModalState(() {
                                 localSelectedItem = 4;
                               });
                               onItemSelected(4);
                             }, "off_flash_icon.svg", "flash", localSelectedItem == 4),
-
                             _buildItem(() {
                               setModalState(() {
                                 localSelectedItem = 5;

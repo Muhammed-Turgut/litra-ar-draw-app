@@ -28,7 +28,7 @@ class ProfileContinueButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min, // Sadece içeriği kadar yer kaplaması için
         children: [
           const Text(
-            "Devam et",
+            "Continue",
             style: TextStyle(
               fontSize: 14,
               fontFamily: 'Outfit',

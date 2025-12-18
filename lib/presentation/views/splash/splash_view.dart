@@ -80,7 +80,7 @@ class _SplashViewState extends State<SplashView> {
                  ),
                 ),
 
-                Text("Sanat parmak uçlarında",
+                Text("Art at your fingertips",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Outfit',
