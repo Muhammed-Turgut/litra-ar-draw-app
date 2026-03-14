@@ -1,8 +1,10 @@
 import 'package:litra_ar_draw_app/data/repositories/FirebaseAuthRepository.dart';
-import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/user_entity.dart';
+import 'package:litra_ar_draw_app/domain/repositories/auth_repository.dart';
+
 
 class GetUserUseCase {
-  final FirebaseAuthRepository firebaseAuthRepository;
+  final AuthRepository firebaseAuthRepository;
 
   GetUserUseCase({required this.firebaseAuthRepository});
 

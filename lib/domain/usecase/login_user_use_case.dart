@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:litra_ar_draw_app/domain/repositories/auth_repository.dart';
 
 class LoginUserUseCase{
-  final AuthRepository repository;
-  LoginUserUseCase({required this.repository});
+  final AuthRepository authRepository;
+  LoginUserUseCase({required this.authRepository});
 
   Future<void> login({
     required String email,
@@ -20,7 +20,7 @@ class LoginUserUseCase{
     }
 
     // Repository'yi çağır
-    await repository.loginUser(email: email, password: password);
+    await authRepository.loginUser(email: email, password: password);
   }
 
   //şifreyi sıfırlama işlemleri
@@ -28,12 +28,12 @@ class LoginUserUseCase{
     if(email.isEmpty){
       throw Exception("Tüm alanları doldurun");
     }
-    await repository.resetPassword(email: email);
+    await authRepository.resetPassword(email: email);
   }
 
   Future<UserCredential> signInWithGoogle() async {
     // Google ile kayıt olduktan sonra Firestore'a kullanıcı bilgilerini kaydet
-    return await repository.signInWithGoogle();
+    return await authRepository.signInWithGoogle();
   }
 
 }

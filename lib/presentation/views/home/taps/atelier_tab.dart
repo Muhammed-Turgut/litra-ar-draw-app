@@ -7,7 +7,6 @@ import 'package:litra_ar_draw_app/presentation/widgets/home/draw_row_item.dart';
 
 class AtelierTab extends StatelessWidget {
 
-
   //Firebasde Storage de veri çekerken kullanılacak.
  // final String BASE_URL = "https://firebasestorage.googleapis.com/v0/b/litra-ar-draw.firebasestorage.app/o/animal_color_duck.png?alt=media&token=";
 
@@ -99,17 +98,27 @@ class AtelierTab extends StatelessWidget {
             DrawCategoryItem(title: "Animals",onTapItem: (item){
               context.go('/home/chooseDrawType',
                   extra: item
-              );},onTapMore: (){},category: "animal"),
+              );},
+                onTapMore: (){},
+                category: "animal"),
 
-            DrawCategoryItem(title: "Nature",onTapItem: (item){
+            DrawCategoryItem(title: "Nature",
+                onTapItem: (item){
               context.go('/home/chooseDrawType',
                   extra: item
-              );},onTapMore: (){},category: "nature"),
+              );
+              },
+                onTapMore: (){},
+                category: "nature"),
 
-            DrawCategoryItem(title: "Vehicles",onTapItem: (item){
+            DrawCategoryItem(title: "Vehicles",
+                onTapItem: (item){
               context.go('/home/chooseDrawType',
                   extra: item
-              );},onTapMore: (){},category: "vehicles"),
+              );
+              },
+                onTapMore: (){},
+                category: "vehicles"),
 
 
            /* DrawCategoryItem(title: "People",onTapItem: (item){

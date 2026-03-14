@@ -1,9 +1,9 @@
 import 'package:litra_ar_draw_app/domain/repositories/auth_repository.dart';
 
 class RegisterUserUseCase {
-  final AuthRepository repository;
+  final AuthRepository authRepository;
 
-  RegisterUserUseCase(this.repository);
+  RegisterUserUseCase({ required this.authRepository});
 
   Future<void> register({
     required String email,
@@ -20,6 +20,6 @@ class RegisterUserUseCase {
     }
 
     // Repository'yi çağır
-    await repository.registerUser(email: email, password: password, fullName: fullName);
+    await authRepository.registerUser(email: email, password: password, fullName: fullName);
   }
 }

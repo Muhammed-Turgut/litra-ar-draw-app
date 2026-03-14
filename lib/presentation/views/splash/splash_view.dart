@@ -21,17 +21,9 @@ class _SplashViewState extends State<SplashView> {
 
     SystemChrome.setEnabledSystemUIMode((SystemUiMode.immersive));
 
-    FirebaseAuth.instance.authStateChanges().listen((User? user){
+    Future.delayed(const Duration(seconds: 3),(){
+      context.go('/home');
 
-      if(user == null){
-        context.go('/onBoarding');
-      }
-      else{
-        Future.delayed(const Duration(seconds: 3),(){
-          context.go('/home');
-        }
-        );
-      }
     });
   }
 

@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/category_items_entity.dart';
 import 'package:litra_ar_draw_app/presentation/enums/camera_permission_status.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/camera_view_model.dart';
 import 'package:provider/provider.dart';
 
 class CameraView extends StatefulWidget {
-  final CategoryEntity categoryEntity;
+  final CategoryItemEntity categoryEntity;
   CameraView({required this.categoryEntity});
 
   @override

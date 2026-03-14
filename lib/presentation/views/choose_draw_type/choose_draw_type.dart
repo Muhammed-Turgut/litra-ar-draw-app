@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/category_items_entity.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/common/custom_button.dart';
 
 class ChooseDrawType extends StatefulWidget {
 
-  final CategoryEntity categoryEntity;
+  final CategoryItemEntity categoryEntity;
 
   ChooseDrawType({required this.categoryEntity});
 

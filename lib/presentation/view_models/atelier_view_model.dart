@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/category_items_entity.dart';
 import 'package:litra_ar_draw_app/domain/usecase/get_content_item_use_case.dart';
 
 class AtelierViewModel extends ChangeNotifier {
@@ -8,42 +8,42 @@ class AtelierViewModel extends ChangeNotifier {
   AtelierViewModel({required this.getContentItemUseCase});
 
   // Lists
-  List<CategoryEntity> _basicList = [];
-  List<CategoryEntity> get basicList => _basicList;
+  List<CategoryItemEntity> _basicList = [];
+  List<CategoryItemEntity> get basicList => _basicList;
 
-  List<CategoryEntity> _animeList = [];
-  List<CategoryEntity> get animeList => _animeList;
+  List<CategoryItemEntity> _animeList = [];
+  List<CategoryItemEntity> get animeList => _animeList;
 
-  List<CategoryEntity> _animalsList = [];
-  List<CategoryEntity> get animalsList => _animalsList;
+  List<CategoryItemEntity> _animalsList = [];
+  List<CategoryItemEntity> get animalsList => _animalsList;
 
-  List<CategoryEntity> _buildingList = [];
-  List<CategoryEntity> get buildingList => _buildingList;
+  List<CategoryItemEntity> _buildingList = [];
+  List<CategoryItemEntity> get buildingList => _buildingList;
 
-  List<CategoryEntity> _peoplesList = [];
-  List<CategoryEntity> get peoplesList => _peoplesList;
+  List<CategoryItemEntity> _peoplesList = [];
+  List<CategoryItemEntity> get peoplesList => _peoplesList;
 
-  List<CategoryEntity> _cartoonList = [];
-  List<CategoryEntity> get cartoonList => _cartoonList;
+  List<CategoryItemEntity> _cartoonList = [];
+  List<CategoryItemEntity> get cartoonList => _cartoonList;
 
-  List<CategoryEntity> _fashionList = [];
-  List<CategoryEntity> get fashionList => _fashionList;
+  List<CategoryItemEntity> _fashionList = [];
+  List<CategoryItemEntity> get fashionList => _fashionList;
 
-  List<CategoryEntity> _fantasyList = [];
-  List<CategoryEntity> get fantasyList => _fantasyList;
+  List<CategoryItemEntity> _fantasyList = [];
+  List<CategoryItemEntity> get fantasyList => _fantasyList;
 
-  List<CategoryEntity> _natureList = [];
-  List<CategoryEntity> get natureList => _natureList;
+  List<CategoryItemEntity> _natureList = [];
+  List<CategoryItemEntity> get natureList => _natureList;
 
-  List<CategoryEntity> _vehiclesList = [];
-  List<CategoryEntity> get vehiclesList => _vehiclesList;
+  List<CategoryItemEntity> _vehiclesList = [];
+  List<CategoryItemEntity> get vehiclesList => _vehiclesList;
 
   // API'den kategori verisi çeker
   Future<void> getCategoryItem(String category) async {
     final result = await getContentItemUseCase.getCategoryItem(category);
 
     switch (category) {
-      case "animal":
+      case "animals":
         _animalsList = result;
         break;
       case "nature":
@@ -76,9 +76,9 @@ class AtelierViewModel extends ChangeNotifier {
   }
 
   // Bellekteki kategori listesini döndürür
-  List<CategoryEntity> getCategoryList(String category) {
+  List<CategoryItemEntity> getCategoryList(String category) {
     switch (category) {
-      case "animal":
+      case "animals":
         return _animalsList;
       case "nature":
         return _natureList;

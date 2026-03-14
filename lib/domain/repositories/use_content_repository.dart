@@ -1,7 +1,7 @@
-import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/category_items_entity.dart';
 
 abstract class UseContentRepository {
 
-  Future<List<CategoryEntity>> getCategoryItem(String category);
+  Future<List<CategoryItemEntity>> getCategoryItem(String category);
 
 }

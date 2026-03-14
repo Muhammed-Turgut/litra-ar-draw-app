@@ -1,13 +1,13 @@
-import 'package:litra_ar_draw_app/data/repositories/camera_repository.dart';
+import 'package:litra_ar_draw_app/domain/repositories/use_request_permission_repository.dart';
 
 class RequestCameraPermissionUseCase {
-  //Burda camera izni isteniyor.
-  final CameraRepository cameraRepository;
-  RequestCameraPermissionUseCase({required this.cameraRepository});
 
+  final UseRequestPermissionRepository requestPermissionRepository;
+  RequestCameraPermissionUseCase({required this.requestPermissionRepository});
+  
   @override
   Future<bool> requestCameraPermission() async{
-    return cameraRepository.requestCameraPermission();
+    return requestPermissionRepository.requestCameraPermission();
   }
 
 }

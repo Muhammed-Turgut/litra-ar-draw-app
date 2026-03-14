@@ -2,6 +2,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:litra_ar_draw_app/domain/usecase/camera_use_case.dart';
+import 'package:litra_ar_draw_app/domain/usecase/request_camera_permission_use_case.dart';
 import 'package:litra_ar_draw_app/main.dart';
 
 import '../enums/camera_permission_status.dart';
@@ -9,8 +10,13 @@ import '../enums/camera_permission_status.dart';
 class CameraViewModel extends ChangeNotifier{
 
   final CameraUseCase cameraUseCase;
+  final RequestCameraPermissionUseCase requestCameraPermissionUseCase;
 
-  CameraViewModel({required this.cameraUseCase});
+  CameraViewModel({
+    required this.requestCameraPermissionUseCase,
+    required this.cameraUseCase
+  });
+
   bool _navigationHandled = false;
 
   CameraController? _controller;
@@ -25,7 +31,7 @@ class CameraViewModel extends ChangeNotifier{
   bool get isInitialized => _controller?.value.isInitialized ?? false;
 
   Future<void> initCamera() async {
-    final granted = await cameraUseCase.requestCameraPermission();
+    final granted = await requestCameraPermissionUseCase.requestCameraPermission();
 
     _permissionStatus =
            granted

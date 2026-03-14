@@ -1,15 +1,13 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:litra_ar_draw_app/domain/entitys/category_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/category_items_entity.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/common/shimmer_box.dart';
 
 class DrawRowItem extends StatelessWidget {
 
   final VoidCallback onTabItem;
-  final CategoryEntity item;
+  final CategoryItemEntity item;
 
   const DrawRowItem({
     required this.onTabItem,

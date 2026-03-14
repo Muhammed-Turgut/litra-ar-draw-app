@@ -2,8 +2,8 @@ import 'dart:io' show File;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
-import 'package:litra_ar_draw_app/domain/entitys/users_post_item.dart';
+import 'package:litra_ar_draw_app/domain/entities/user_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/users_post_item.dart';
 import 'package:litra_ar_draw_app/domain/usecase/get_post_use_case.dart';
 import 'package:litra_ar_draw_app/domain/usecase/get_user_use_case.dart';
 import 'package:litra_ar_draw_app/domain/usecase/pick_image_use_case.dart';
@@ -12,6 +12,7 @@ import 'package:litra_ar_draw_app/domain/usecase/share_post_use_case.dart';
 import 'package:litra_ar_draw_app/presentation/enums/gallery_permission_status.dart';
 
 class ExploreViewModel extends ChangeNotifier {
+
   final RequestCameraPermissionUseCase requestCameraPermissionUseCase;
   final SharePostUseCase sharePostUseCase;
   final PickImageUseCase pickImageUseCase;

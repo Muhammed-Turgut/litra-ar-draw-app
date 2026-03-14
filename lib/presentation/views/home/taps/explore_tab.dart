@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
-import 'package:litra_ar_draw_app/domain/entitys/users_post_item.dart';
+import 'package:litra_ar_draw_app/domain/entities/users_post_item.dart';
 import 'package:litra_ar_draw_app/presentation/services/image_picker_services.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/explore_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/explore/vertical_score_bar.dart';

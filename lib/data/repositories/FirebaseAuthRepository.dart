@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:litra_ar_draw_app/domain/entitys/user_entity.dart';
+import 'package:litra_ar_draw_app/domain/entities/user_entity.dart';
 import 'package:litra_ar_draw_app/domain/repositories/auth_repository.dart';
 
 class FirebaseAuthRepository implements AuthRepository {

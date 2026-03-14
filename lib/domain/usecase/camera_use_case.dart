@@ -5,10 +5,7 @@ class CameraUseCase{
 
   final UseCameraRepository cameraRepository;
   CameraUseCase({required this.cameraRepository});
-
-  Future<bool> requestCameraPermission() async{
-     return cameraRepository.requestCameraPermission();
-  }
+  
   Future<CameraController> initializedCamera(int index){
     return cameraRepository.initializedCamera(index);
   }

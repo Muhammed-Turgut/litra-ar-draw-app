@@ -1,10 +1,11 @@
 
 import 'dart:io';
 
-import 'package:litra_ar_draw_app/data/repositories/post_repository.dart';
+import 'package:litra_ar_draw_app/data/repositories/post_repository_impl.dart';
+import 'package:litra_ar_draw_app/domain/repositories/use_post_repository.dart';
 
 class SharePostUseCase {
-  final PostRepository postRepository;
+  final UsePostRepository postRepository;
   SharePostUseCase({required this.postRepository});
 
   Future<String?> sharePostWithImage({

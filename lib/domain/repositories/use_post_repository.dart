@@ -1,8 +1,7 @@
 import 'dart:io' show File;
-
 import 'package:image_picker/image_picker.dart';
-import 'package:litra_ar_draw_app/domain/entitys/users_post_item.dart';
-import 'package:litra_ar_draw_app/presentation/enums/gallery_permission_status.dart';
+import 'package:litra_ar_draw_app/domain/entities/users_post_item.dart';
+
 
 abstract class UsePostRepository {
 
@@ -25,8 +24,6 @@ abstract class UsePostRepository {
 
   //Yüklenen postu silmek için
   Future<void> deletePost(String postId, String userId) async{}
-
-  Future<GalleryPermissionStatus> requestGalleryPermission();
 
   Future<List<UsersPostItem>> getPostList();
 }
