@@ -13,6 +13,7 @@ import 'package:litra_ar_draw_app/presentation/views/onBoarding/on_boarding_view
 import 'package:litra_ar_draw_app/presentation/views/share_page/share_page_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/sigin/signin_view.dart';
 import 'package:litra_ar_draw_app/presentation/views/splash/splash_view.dart';
+import 'package:litra_ar_draw_app/presentation/views/subscription_selection_view.dart';
 
 class AppRouter{
   AppRouter._();
@@ -23,7 +24,7 @@ class AppRouter{
 
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/splash',
+    initialLocation: '/subscriptionSelectionView',
     routes: [
 
       GoRoute(
@@ -31,6 +32,13 @@ class AppRouter{
         path: '/splash',
         name: 'splash',
         builder: (context,state) => SplashView()
+      ),
+
+      GoRoute(
+        //Splash screen - ilk açılan ekranım
+          path: '/subscriptionSelectionView',
+          name: 'SubscriptionSelectionView',
+          builder: (context,state) => SubscriptionSelectionView()
       ),
 
       GoRoute(
