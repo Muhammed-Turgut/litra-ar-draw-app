@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:litra_ar_draw_app/core/router/app_router.dart';
 import 'package:litra_ar_draw_app/firebase_options.dart';
 import 'package:litra_ar_draw_app/presentation/providers/camera_providers.dart';
@@ -13,38 +14,32 @@ import 'package:provider/provider.dart';
 List<CameraDescription> cameras = [];
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // sadece bir kere yeterli
 
-  ///Uygulamanın sadece dikey moda kullanılmasını sağlamak için ekranı dikey moda kitledim.
-  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras(); // ← bunu ekle
+
+  await MobileAds.instance.initialize();
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  ///---------------------------------------
-
-
-
-  /// 2. Firebase bağlantısını başlatır !!! şimdilik kalıcak
-  ///
-  ///------------Fierbase------------
-  /// 1. Gerekli bağlamayı sağlar (Firebase'den önce mutlaka olmalı)
-  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(
-   MultiProvider(
-     //Burda Providere widget ağacına enjecte etik.
-     providers:[
-       ...loginProviders,
-       ...cameraProviders,
-       ...exploreProviders,
-       ...mainProviders
-     ],
-     child:MyApp()
-   ));
+    MultiProvider(
+      providers: [
+        ...loginProviders,
+        ...cameraProviders,
+        ...exploreProviders,
+        ...mainProviders,
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

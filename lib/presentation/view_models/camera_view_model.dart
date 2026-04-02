@@ -31,18 +31,22 @@ class CameraViewModel extends ChangeNotifier{
   bool get isInitialized => _controller?.value.isInitialized ?? false;
 
   Future<void> initCamera() async {
+    print('=== initCamera başladı ===');
+
     final granted = await requestCameraPermissionUseCase.requestCameraPermission();
+    print('=== izin: $granted ===');
 
-    _permissionStatus =
-           granted
-             ? CameraPermissionStatus.granted
-             : CameraPermissionStatus.denied;
+    _permissionStatus = granted
+        ? CameraPermissionStatus.granted
+        : CameraPermissionStatus.denied;
 
-    if(_permissionStatus == CameraPermissionStatus.granted){
+    if (_permissionStatus == CameraPermissionStatus.granted) {
       _controller = await cameraUseCase.initializedCamera(_selectedCameraIndex);
+      print('=== controller: $_controller ===');
+      print('=== isInitialized: ${_controller?.value.isInitialized} ===');
     }
 
-    notifyListeners(); //dinleme işlemi için
+    notifyListeners();
   }
 
   void resetPermissionStatus() {

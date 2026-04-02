@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:litra_ar_draw_app/data/repositories/camera_repository_impl.dart';
 import 'package:litra_ar_draw_app/data/repositories/request_permission_repository_impl.dart';
 import 'package:litra_ar_draw_app/domain/repositories/use_camera_repository.dart';
@@ -9,28 +10,34 @@ import 'package:provider/provider.dart';
 
 final cameraProviders = [
 
-  Provider<UseCameraRepository>(create: (context) => CameraRepositoryImpl()),
-  Provider<UseRequestPermissionRepository>(create: (context) => RequestPermissionRepositoryImpl()),
-
-  Provider<CameraUseCase>(create: (context)=>
-      CameraUseCase(cameraRepository: context.read<CameraRepositoryImpl>())
+  Provider<UseCameraRepository>(
+    create: (context) => CameraRepositoryImpl(),
   ),
 
-  Provider<RequestCameraPermissionUseCase>(create: (context)=>
-      RequestCameraPermissionUseCase(requestPermissionRepository: context.read<UseRequestPermissionRepository>())
+  Provider<UseRequestPermissionRepository>(
+    create: (context) => RequestPermissionRepositoryImpl(),
   ),
-  
-  ChangeNotifierProvider<CameraViewModel>(create: (context) => CameraViewModel(
+
+  ProxyProvider<UseCameraRepository, CameraUseCase>(
+    update: (context, cameraRepo, previous) =>
+        CameraUseCase(cameraRepository: cameraRepo),
+  ),
+
+  ProxyProvider<UseRequestPermissionRepository, RequestCameraPermissionUseCase>(
+    update: (context, permissionRepo, previous) =>
+        RequestCameraPermissionUseCase(requestPermissionRepository: permissionRepo),
+  ),
+
+  ChangeNotifierProxyProvider2<RequestCameraPermissionUseCase, CameraUseCase, CameraViewModel>(
+    create: (context) => CameraViewModel(
       requestCameraPermissionUseCase: context.read<RequestCameraPermissionUseCase>(),
-      cameraUseCase: context.read<CameraUseCase>())
-  )
-
+      cameraUseCase: context.read<CameraUseCase>(),
+    ),
+    update: (context, permissionUseCase, cameraUseCase, previous) =>
+        CameraViewModel(
+          requestCameraPermissionUseCase: permissionUseCase,
+          cameraUseCase: cameraUseCase,
+        ),
+  ),
 
 ];
-
-/*
-ChangeNotifierProvider(create: (_) => CameraViewModel(
-cameraUseCase: cameraUseCase,
-requestCameraPermissionUseCase: requestCameraUseCase)),
-
- */
