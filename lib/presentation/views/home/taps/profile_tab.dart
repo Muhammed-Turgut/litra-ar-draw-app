@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:litra_ar_draw_app/presentation/view_models/explore_view_model.dart';
 import 'package:litra_ar_draw_app/presentation/widgets/profile/profile_continue_button.dart';
@@ -7,13 +8,54 @@ import 'package:litra_ar_draw_app/presentation/widgets/profile/profile_info.dart
 import 'package:provider/provider.dart' show Consumer;
 
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
 
   final VoidCallback goLevel;
   final VoidCallback goSharePost;
 
   ProfileTab({required this.goLevel, required this.goSharePost});
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
+
+
+  BannerAd? myBanner;
+
+  bool _isBannerLoaded = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    myBanner = BannerAd(
+      adUnitId: 'ca-app-pub-6184842514914637/4570947815',
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _isBannerLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print("Reklam hatası: $error");
+        },
+      ),
+    );
+
+    myBanner!.load();
+  }
+
+  @override
+  void dispose() {
+    myBanner?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +75,28 @@ class ProfileTab extends StatelessWidget {
         child: Column(
           children: [
             _buildTopBar((){
-              goLevel();
+              widget.goLevel();
             }),
             SizedBox(height: 16,),
             _buildContentBar(),
+
+            SizedBox(
+              height: 16,
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (_isBannerLoaded && myBanner != null)
+                  Container(
+                    alignment: Alignment.center,
+                    width: myBanner!.size.width.toDouble(),
+                    height: myBanner!.size.height.toDouble(),
+                    child: AdWidget(ad: myBanner!),
+                  )
+              ],
+            ),
 
             SizedBox(
               height: 16,
@@ -61,7 +121,7 @@ class ProfileTab extends StatelessWidget {
                   ),
                   SizedBox(height: 8,),
                   _buildUploadImageAre(context, (){
-                    goSharePost();
+                    widget.goSharePost();
                   })
                 ],
               ),

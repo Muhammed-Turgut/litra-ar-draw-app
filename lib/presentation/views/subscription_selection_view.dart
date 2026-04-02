@@ -12,11 +12,11 @@ class SubscriptionSelectionView extends StatelessWidget {
     return SafeArea(
       top: true,
       bottom: true,
-      child: Scaffold(body: _buildBody()),
+      child: Scaffold(body: _buildBody(context)),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -66,13 +66,19 @@ class SubscriptionSelectionView extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          "assets/icons/chevron_left_icon.svg",
-                          colorFilter: ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.srcIn,
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: SvgPicture.asset(
+                            "assets/icons/chevron_left_icon.svg",
+                            colorFilter: ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.srcIn,
+                            ),
                           ),
-                        ),
+                        )
+
                       ],
                     ),
 
